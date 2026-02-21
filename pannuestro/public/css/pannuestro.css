@@ -1,951 +1,1362 @@
 /* ============================================================
    Pan Nuestro — Visual Theme for ERPNext / Frappe
-   Full visual overhaul: every component branded to Pan Nuestro
+   Full override using Frappe's own CSS variable system + selectors
    ============================================================ */
 
-/* Google Fonts */
+/* Google Fonts — must be the FIRST rule */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Crimson+Pro:wght@300;400;600&family=Jost:wght@300;400;500&family=Cormorant+SC:wght@400;600&display=swap');
 
+
 /* ============================================================
-   1. CSS Custom Properties (Design Tokens)
+   0. OVERRIDE FRAPPE'S OWN CSS CUSTOM PROPERTIES
+   This is the nuclear option — changes everything at the source.
+   Frappe reads from these vars; we redefine them.
    ============================================================ */
 
-:root {
-  /* Primarios */
+:root,
+[data-theme="light"] {
+  /* ---- Pan Nuestro palette tokens ---- */
   --color-sacro: #3D1A2E;
   --color-carbon: #1A1118;
   --color-harina: #E8DFD0;
-
-  /* Secundarios */
   --color-oro: #B8985A;
   --color-terracotta: #A0725A;
   --color-vino-profundo: #6B2D3E;
   --color-pergamino: #DDD5C6;
-
-  /* Texto */
   --color-text-title: #1A1118;
   --color-text-body: #2E2028;
   --color-text-secondary: #5C4A52;
-  --color-text-muted: #8A7D82;
-
-  /* Superficies */
+  --color-text-muted-pn: #8A7D82;
   --color-surface-primary: #E8DFD0;
   --color-surface-elevated: #F2EDE6;
   --color-surface-card: #FAF8F5;
-
-  /* Bordes */
   --color-border-default: #DDD5C6;
   --color-border-subtle: rgba(61, 26, 46, 0.08);
-
-  /* Sombras */
-  --shadow-sm: 0 1px 3px rgba(26, 17, 24, 0.06);
-  --shadow-md: 0 4px 12px rgba(26, 17, 24, 0.08);
-  --shadow-lg: 0 8px 30px rgba(26, 17, 24, 0.10);
-
-  /* Fonts */
+  --shadow-pn-sm: 0 1px 3px rgba(26, 17, 24, 0.06);
+  --shadow-pn-md: 0 4px 12px rgba(26, 17, 24, 0.08);
+  --shadow-pn-lg: 0 8px 30px rgba(26, 17, 24, 0.10);
   --font-display: 'Playfair Display', 'Georgia', serif;
   --font-body: 'Crimson Pro', 'Georgia', serif;
   --font-ui: 'Jost', 'Helvetica Neue', sans-serif;
   --font-accent: 'Cormorant SC', serif;
 
-  /* Status colors (armonizados con la paleta) */
-  --color-status-success: #6B7F5E;
-  --color-status-success-bg: rgba(107, 127, 94, 0.12);
-  --color-status-warning: #B8985A;
-  --color-status-warning-bg: rgba(184, 152, 90, 0.12);
-  --color-status-danger: #8B3A4A;
-  --color-status-danger-bg: rgba(139, 58, 74, 0.12);
-  --color-status-info: #A0725A;
-  --color-status-info-bg: rgba(160, 114, 90, 0.12);
+  /* ---- Frappe core variables — OVERRIDDEN ---- */
+  --font-stack: 'Jost', 'Crimson Pro', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  --bg-color: #E8DFD0 !important;
+  --fg-color: #FAF8F5 !important;
+  --card-bg: #FAF8F5 !important;
+  --modal-bg: #FAF8F5 !important;
+  --control-bg: #F2EDE6 !important;
+  --navbar-bg: #3D1A2E !important;
+  --neutral: #E8DFD0 !important;
+  --invert-neutral: #3D1A2E !important;
+  --surface-menu-bar: #FAF8F5 !important;
+
+  /* Text */
+  --text-color: #2E2028 !important;
+  --text-muted: #8A7D82 !important;
+  --text-light: #5C4A52 !important;
+  --heading-color: #3D1A2E !important;
+
+  /* Buttons */
+  --btn-primary: #3D1A2E !important;
+  --btn-default-bg: transparent !important;
+  --btn-default-hover-bg: rgba(61, 26, 46, 0.06) !important;
+  --btn-ghost-hover-bg: rgba(61, 26, 46, 0.06) !important;
+
+  /* Borders & Shadows */
+  --border-color: #DDD5C6 !important;
+  --dark-border-color: #C5BDB0 !important;
+  --subtle-fg: #F2EDE6 !important;
+  --subtle-accent: rgba(61, 26, 46, 0.08) !important;
+  --highlight-color: rgba(61, 26, 46, 0.04) !important;
+  --fg-hover-color: #F2EDE6 !important;
+
+  --shadow-xs: 0 1px 2px rgba(26, 17, 24, 0.04) !important;
+  --shadow-sm: 0 1px 3px rgba(26, 17, 24, 0.06) !important;
+  --shadow-base: 0 2px 6px rgba(26, 17, 24, 0.08) !important;
+  --shadow-md: 0 4px 12px rgba(26, 17, 24, 0.08) !important;
+  --shadow-lg: 0 8px 30px rgba(26, 17, 24, 0.10) !important;
+  --shadow-2xl: 0 12px 40px rgba(26, 17, 24, 0.12) !important;
+  --card-shadow: 0 1px 3px rgba(26, 17, 24, 0.06) !important;
+
+  /* Icons */
+  --icon-stroke: #3D1A2E !important;
+  --icon-fill: transparent !important;
+  --icon-fill-bg: #FAF8F5 !important;
+
+  /* Focus */
+  --focus-default: 0 0 0 3px rgba(61, 26, 46, 0.1) !important;
+
+  /* Border radius */
+  --border-radius: 4px !important;
+  --border-radius-sm: 4px !important;
+  --border-radius-md: 8px !important;
+  --border-radius-lg: 12px !important;
+  --border-radius-full: 12px !important;
+
+  /* Progress bar */
+  --progress-bar-bg: #3D1A2E !important;
+
+  /* Sidebar variables (Frappe v15+) */
+  --sidebar-hover-color: #DDD5C6 !important;
+  --sidebar-active-color: rgba(61, 26, 46, 0.08) !important;
+  --sidebar-border-color: #DDD5C6 !important;
+  --divider-color: #DDD5C6 !important;
+
+  /* ---- Indicator color variables ---- */
+  /* Green / Success */
+  --bg-green: rgba(107, 127, 94, 0.15) !important;
+  --text-on-green: #4A5C3F !important;
+
+  /* Blue → remap to Terracotta */
+  --bg-blue: rgba(160, 114, 90, 0.15) !important;
+  --text-on-blue: #7A5240 !important;
+
+  /* Red / Danger */
+  --bg-red: rgba(139, 58, 74, 0.15) !important;
+  --text-on-red: #8B3A4A !important;
+
+  /* Orange / Warning */
+  --bg-orange: rgba(184, 152, 90, 0.15) !important;
+  --text-on-orange: #8A6E30 !important;
+
+  /* Yellow */
+  --bg-yellow: rgba(184, 152, 90, 0.12) !important;
+  --text-on-yellow: #8A6E30 !important;
+
+  /* Gray */
+  --bg-gray: rgba(138, 125, 130, 0.12) !important;
+  --text-on-gray: #5C4A52 !important;
+
+  /* Purple → Vino Profundo */
+  --bg-purple: rgba(107, 45, 62, 0.15) !important;
+  --text-on-purple: #6B2D3E !important;
+
+  /* Cyan → Oro */
+  --bg-cyan: rgba(184, 152, 90, 0.12) !important;
+  --text-on-cyan: #8A6E30 !important;
+
+  /* Light blue → Oro */
+  --bg-light-blue: rgba(184, 152, 90, 0.10) !important;
+  --text-on-light-blue: #B8985A !important;
+
+  /* Pink → Vino */
+  --bg-pink: rgba(107, 45, 62, 0.10) !important;
+  --text-on-pink: #6B2D3E !important;
+
+  /* Grey alias */
+  --bg-grey: rgba(138, 125, 130, 0.12) !important;
+  --text-on-grey: #5C4A52 !important;
+
+  /* Dark blue → Sacro */
+  --bg-dark-blue: rgba(61, 26, 46, 0.12) !important;
+  --text-on-dark-blue: #3D1A2E !important;
+
+  /* Alerts */
+  --alert-text-danger: #8B3A4A !important;
+  --alert-bg-danger: rgba(139, 58, 74, 0.08) !important;
+  --alert-text-warning: #8A6E30 !important;
+  --alert-bg-warning: rgba(184, 152, 90, 0.08) !important;
+  --alert-text-info: #7A5240 !important;
+  --alert-bg-info: rgba(160, 114, 90, 0.08) !important;
+  --alert-text-success: #4A5C3F !important;
+  --alert-bg-success: rgba(107, 127, 94, 0.08) !important;
+
+  /* Scrollbar */
+  --scroll-bg: #DDD5C6 !important;
+  --scroll-track-bg: #F2EDE6 !important;
+
+  /* Skeleton loading */
+  --skeleton-bg: #F2EDE6 !important;
 }
 
 
 /* ============================================================
-   2. Body & Base Typography
+   1. BODY & BASE TYPOGRAPHY
+   Frappe: body { color: var(--text-muted); background-color: var(--bg-color); }
    ============================================================ */
 
-body,
-body.frappe-web {
-  background-color: var(--color-harina) !important;
-  font-family: var(--font-body) !important;
+html,
+body {
+  background-color: #E8DFD0 !important;
+  font-family: 'Crimson Pro', 'Georgia', serif !important;
   font-weight: 300 !important;
-  color: var(--color-text-body) !important;
+  color: #2E2028 !important;
   line-height: 1.7 !important;
+  -webkit-font-smoothing: antialiased !important;
 }
 
-h1, h2, h3, h4, h5, h6,
-.page-title,
-.ellipsis.title-text,
-.title-text {
-  font-family: var(--font-display) !important;
-  color: var(--color-sacro) !important;
+/* Headings - Frappe: h1-h4 { color: var(--text-color) } */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', 'Georgia', serif !important;
+  color: #3D1A2E !important;
   font-weight: 700 !important;
 }
 
-p, span, div, li, td, th, label {
-  font-family: inherit;
+/* Page title - Frappe: .title-area */
+.page-title .title-text,
+.title-area .title-text,
+.ellipsis.title-text,
+.title-text {
+  font-family: 'Playfair Display', 'Georgia', serif !important;
+  color: #3D1A2E !important;
+  font-weight: 700 !important;
 }
 
-/* Labels, small UI text */
-label,
+/* Labels, UI text - Frappe: .control-label, .grid-heading-row */
 .control-label,
-.frappe-control .label,
-.like-disabled-input .label,
-.indicator-pill,
-.nav-link,
-.sidebar-label,
-.desk-sidebar .sidebar-label {
-  font-family: var(--font-ui) !important;
+.grid-heading-row,
+.frappe-control .control-label,
+label,
+.like-disabled-input .label {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  color: #5C4A52 !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.02em !important;
 }
 
 
 /* ============================================================
-   3. Navbar (barra superior)
+   2. NAVBAR
+   Frappe: .navbar { background: var(--navbar-bg); height: $navbar-height; }
+   Frappe: .navbar .nav-item { margin-left: var(--margin-md) }
    ============================================================ */
 
-.navbar,
-header .navbar,
-.navbar-expand,
-.navbar.navbar-expand,
-#navbar-breadcrumbs,
-.container .navbar {
-  background-color: var(--color-sacro) !important;
-  border-bottom: 2px solid var(--color-vino-profundo) !important;
+.navbar {
+  background-color: #3D1A2E !important;
+  background: #3D1A2E !important;
+  border-bottom: 2px solid #6B2D3E !important;
   box-shadow: 0 2px 8px rgba(26, 17, 24, 0.15) !important;
 }
 
-/* Navbar text, icons, brand */
-.navbar .navbar-brand,
-.navbar .nav-link,
-.navbar .navbar-nav .nav-link,
-.navbar .navbar-nav > li > a,
-.navbar .navbar-brand img + span,
-.navbar .navbar-home,
-.navbar .notifications-icon,
-.navbar .navbar-icon-text,
-.navbar .search-bar .search-icon,
-.navbar .dropdown-toggle,
+/* All navbar text + icons */
 .navbar a,
 .navbar span,
-.navbar .navbar-right .nav-link {
-  color: var(--color-harina) !important;
-  font-family: var(--font-ui) !important;
-  text-transform: uppercase !important;
+.navbar .nav-link,
+.navbar .navbar-nav .nav-link,
+.navbar .nav-item,
+.navbar .navbar-brand,
+.navbar .navbar-home,
+.navbar .dropdown-toggle {
+  color: #E8DFD0 !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
   letter-spacing: 0.05em !important;
 }
 
-/* Navbar SVG icons */
+/* Navbar SVGs — Frappe: svg { stroke: var(--icon-stroke) } */
 .navbar svg,
-.navbar .es-icon,
-.navbar use,
-.navbar .icon {
-  stroke: var(--color-harina) !important;
-  color: var(--color-harina) !important;
-  fill: currentColor !important;
+.navbar .icon,
+.navbar use {
+  stroke: #E8DFD0 !important;
+  color: #E8DFD0 !important;
 }
 
-/* Navbar search bar */
-.navbar .search-bar,
+/* Navbar search bar — Frappe: .search-bar .awesomplete input */
+.search-bar .awesomplete input,
+.search-bar input,
 .navbar .search-bar input,
-.navbar .form-control.navbar-search,
-.navbar input[type="text"],
-.search-bar .awesomplete input {
+.search-bar .search-icon {
   background-color: rgba(232, 223, 208, 0.15) !important;
-  color: var(--color-harina) !important;
+  background: rgba(232, 223, 208, 0.15) !important;
+  color: #E8DFD0 !important;
   border: 1px solid rgba(232, 223, 208, 0.25) !important;
   border-radius: 4px !important;
-  font-family: var(--font-ui) !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
 }
 
-.navbar .search-bar input::placeholder,
+.search-bar .search-icon {
+  background-color: rgba(232, 223, 208, 0.15) !important;
+}
+
+.search-bar .search-icon svg {
+  stroke: #E8DFD0 !important;
+}
+
+.search-bar .awesomplete input::placeholder,
+.search-bar input::placeholder,
 .navbar input::placeholder {
   color: rgba(232, 223, 208, 0.6) !important;
 }
 
-/* Navbar hover */
+/* Navbar hover — Frappe: .nav-link:hover { color: $primary } */
 .navbar .nav-link:hover,
 .navbar .nav-link:focus,
-.navbar .navbar-nav > li > a:hover,
-.navbar .dropdown-toggle:hover,
-.navbar a:hover {
-  background-color: var(--color-vino-profundo) !important;
-  color: var(--color-harina) !important;
+.navbar a:hover,
+.navbar .dropdown-toggle:hover {
+  background-color: #6B2D3E !important;
+  color: #E8DFD0 !important;
+  text-decoration: none !important;
 }
 
-/* Navbar dropdown menus */
+/* Navbar dropdowns — Frappe: .dropdown-menu { background-color: ... } */
 .navbar .dropdown-menu {
-  background-color: var(--color-sacro) !important;
-  border: 1px solid var(--color-vino-profundo) !important;
-  box-shadow: var(--shadow-md) !important;
+  background-color: #3D1A2E !important;
+  border: 1px solid #6B2D3E !important;
+  box-shadow: 0 4px 12px rgba(26, 17, 24, 0.2) !important;
 }
 
 .navbar .dropdown-menu .dropdown-item,
 .navbar .dropdown-menu a {
-  color: var(--color-harina) !important;
-  font-family: var(--font-ui) !important;
+  color: #E8DFD0 !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
 }
 
 .navbar .dropdown-menu .dropdown-item:hover,
 .navbar .dropdown-menu a:hover {
-  background-color: var(--color-vino-profundo) !important;
+  background-color: #6B2D3E !important;
+  color: #E8DFD0 !important;
 }
 
-/* Breadcrumbs in navbar */
-.breadcrumb-container,
-.breadcrumb,
+/* Breadcrumbs */
+.breadcrumb-container a,
+.breadcrumb-item a,
 #navbar-breadcrumbs a,
-#navbar-breadcrumbs li,
-.breadcrumb-item,
-.breadcrumb-item a {
-  color: var(--color-harina) !important;
-  font-family: var(--font-ui) !important;
+#navbar-breadcrumbs li {
+  color: #E8DFD0 !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  text-decoration: none !important;
 }
 
 #navbar-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
   color: rgba(232, 223, 208, 0.5) !important;
 }
 
+/* Vertical bar separator in navbar */
+.navbar .vertical-bar {
+  border-right-color: #6B2D3E !important;
+}
+
 
 /* ============================================================
-   4. Sidebar (menú lateral izquierdo)
+   3. SIDEBAR (Frappe v15+ .body-sidebar system)
+   Frappe: .body-sidebar { background: var(--surface-menu-bar); width: 50px }
+   Frappe: .active-sidebar { background: var(--sidebar-active-color) }
+   Frappe: .standard-sidebar-item .item-anchor { color: var(--ink-gray-8) }
+   Also: legacy .desk-sidebar, .standard-sidebar, .layout-side-section
    ============================================================ */
 
+/* Main sidebar container */
+.body-sidebar,
 .desk-sidebar,
-.layout-side-section,
-.col-lg-2.layout-side-section,
-.desk-sidebar .sidebar-menu {
-  background-color: var(--color-surface-card) !important;
-  border-right: 1px solid var(--color-border-default) !important;
+.layout-side-section {
+  background-color: #FAF8F5 !important;
+  background: #FAF8F5 !important;
+  border-right: 1px solid #DDD5C6 !important;
 }
 
-/* Sidebar menu items */
+/* Sidebar items — Frappe: .standard-sidebar-item .item-anchor */
+.body-sidebar .standard-sidebar-item .item-anchor,
+.body-sidebar .standard-sidebar-item .sidebar-item-label,
+.standard-sidebar .standard-sidebar-item,
+.standard-sidebar .standard-sidebar-item a,
 .desk-sidebar .standard-sidebar-item,
-.desk-sidebar .sidebar-menu .standard-sidebar-item a,
-.desk-sidebar a,
-.sidebar-menu a,
-.standard-sidebar-item a,
-.standard-sidebar-item span {
-  font-family: var(--font-ui) !important;
-  color: var(--color-text-body) !important;
-  border-radius: 4px !important;
-  transition: all 0.2s ease !important;
+.desk-sidebar a {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  color: #2E2028 !important;
+  text-decoration: none !important;
 }
 
-/* Sidebar active item — subtle bg + left border accent */
-.desk-sidebar .standard-sidebar-item.active,
-.desk-sidebar .standard-sidebar-item.selected,
-.sidebar-menu .standard-sidebar-item.active,
-.standard-sidebar-item.active {
-  background-color: rgba(61, 26, 46, 0.06) !important;
-  border-left: 3px solid var(--color-sacro) !important;
-  color: var(--color-sacro) !important;
+/* Sidebar item icons — Frappe: .sidebar-item-icon */
+.body-sidebar .standard-sidebar-item .sidebar-item-icon svg,
+.body-sidebar .standard-sidebar-item svg,
+.standard-sidebar .standard-sidebar-item svg,
+.desk-sidebar svg {
+  color: #3D1A2E !important;
+  stroke: #3D1A2E !important;
 }
 
-.desk-sidebar .standard-sidebar-item.active a,
-.desk-sidebar .standard-sidebar-item.active span,
-.desk-sidebar .standard-sidebar-item.selected a,
-.desk-sidebar .standard-sidebar-item.selected span {
-  color: var(--color-sacro) !important;
+/* Active sidebar item — Frappe: .active-sidebar */
+.active-sidebar {
+  background: rgba(61, 26, 46, 0.08) !important;
+  border-left: 3px solid #3D1A2E !important;
+  box-shadow: none !important;
+  border-radius: 0 8px 8px 0 !important;
+}
+
+.active-sidebar .item-anchor,
+.active-sidebar .sidebar-item-label,
+.active-sidebar a {
+  color: #3D1A2E !important;
   font-weight: 500 !important;
 }
 
-/* Sidebar hover */
-.desk-sidebar .standard-sidebar-item:hover,
-.sidebar-menu .standard-sidebar-item:hover,
-.standard-sidebar-item:hover {
-  background-color: var(--color-pergamino) !important;
+/* Sidebar hover — Frappe: hover-mixin { background-color: var(--sidebar-hover-color) } */
+.body-sidebar .standard-sidebar-item:not(.active-sidebar):hover,
+.standard-sidebar .standard-sidebar-item:hover,
+.desk-sidebar .standard-sidebar-item:hover {
+  background-color: #DDD5C6 !important;
 }
 
-/* Sidebar icons */
-.desk-sidebar .standard-sidebar-item svg,
-.desk-sidebar .standard-sidebar-item .icon,
-.desk-sidebar .sidebar-icon,
-.sidebar-menu svg,
-.standard-sidebar-item svg {
-  color: var(--color-sacro) !important;
-  stroke: var(--color-sacro) !important;
-}
-
-/* Sidebar section headers ("PÚBLICO", etc.) */
-.desk-sidebar .sidebar-label,
+/* Section break labels — Frappe: .section-break { color: var(--ink-gray-5) !important } */
+.body-sidebar .section-break,
 .sidebar-label,
-.sidebar-section .sidebar-label,
-.desk-sidebar .list-sidebar .sidebar-label,
-.sidebar-menu .sidebar-label {
-  font-family: var(--font-accent) !important;
+.standard-sidebar .sidebar-label,
+.desk-sidebar .sidebar-label {
+  font-family: 'Cormorant SC', serif !important;
   letter-spacing: 0.1em !important;
-  color: var(--color-text-muted) !important;
+  color: #8A7D82 !important;
   text-transform: uppercase !important;
   font-weight: 600 !important;
   font-size: 0.75rem !important;
-  padding: 0.75rem 0 0.25rem 0.5rem !important;
+}
+
+/* Sidebar keyboard shortcut */
+.sidebar-item-suffix .keyboard-shortcut {
+  color: #8A7D82 !important;
+}
+
+/* Sidebar collapse link */
+.body-sidebar .collapse-sidebar-link {
+  color: #5C4A52 !important;
+}
+
+.body-sidebar .collapse-sidebar-link:hover {
+  color: #3D1A2E !important;
+}
+
+/* Sidebar divider */
+.body-sidebar .divider {
+  border-top-color: #DDD5C6 !important;
 }
 
 
 /* ============================================================
-   5. Links
+   4. LINKS
+   Frappe: a { color: $text-color }
    ============================================================ */
 
-a,
-a:visited {
-  color: var(--color-sacro) !important;
+a {
+  color: #3D1A2E !important;
   transition: color 0.15s ease !important;
 }
 
 a:hover,
 a:focus {
-  color: var(--color-vino-profundo) !important;
-  text-decoration: underline !important;
+  color: #6B2D3E !important;
 }
 
-/* Keep navbar and sidebar link overrides from conflicting */
-.navbar a,
-.navbar a:visited,
-.navbar a:hover { text-decoration: none !important; }
+/* Prevent navbar/sidebar links from getting underline on hover */
+.navbar a:hover,
+.body-sidebar a:hover,
+.desk-sidebar a:hover,
+.standard-sidebar a:hover {
+  text-decoration: none !important;
+}
+
+/* Grey/disabled links — Frappe: a.grey, a.disabled */
+a.grey,
+a.disabled,
+.sidebar-section a,
+.control-value a,
+.data-row a {
+  text-decoration: none !important;
+}
 
 
 /* ============================================================
-   6. Buttons
+   5. BUTTONS
+   Frappe: .btn.btn-primary { background-color: var(--btn-primary); color: var(--neutral) }
+   Frappe: .btn.btn-default { background-color: var(--control-bg); color: var(--text-color) }
+   Frappe: .btn.btn-secondary { background-color: var(--control-bg); color: var(--text-color) }
+   Note: Frappe uses .btn.btn-primary (compound) for higher specificity
    ============================================================ */
 
-/* Primary button */
-.btn-primary,
-.btn-primary-dark,
+/* Primary */
+.btn.btn-primary,
 .page-actions .btn-primary,
-.primary-action,
-a.btn-primary {
-  background-color: var(--color-sacro) !important;
-  border-color: var(--color-sacro) !important;
-  color: var(--color-harina) !important;
-  font-family: var(--font-ui) !important;
+.btn-primary,
+.btn-primary-dark {
+  background-color: #3D1A2E !important;
+  border-color: #3D1A2E !important;
+  color: #E8DFD0 !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
   text-transform: uppercase !important;
   letter-spacing: 0.08em !important;
   border-radius: 4px !important;
   font-weight: 400 !important;
-  transition: all 0.2s ease !important;
+  border: 1px solid #3D1A2E !important;
 }
 
+.btn.btn-primary:hover,
+.btn.btn-primary:focus,
+.btn.btn-primary:active,
+.page-actions .btn-primary:hover,
 .btn-primary:hover,
 .btn-primary:focus,
-.btn-primary:active,
-.btn-primary-dark:hover,
-.btn-primary-dark:focus,
-.page-actions .btn-primary:hover,
-.primary-action:hover {
-  background-color: var(--color-vino-profundo) !important;
-  border-color: var(--color-vino-profundo) !important;
-  color: var(--color-harina) !important;
+.btn-primary:active {
+  background-color: #6B2D3E !important;
+  border-color: #6B2D3E !important;
+  color: #E8DFD0 !important;
 }
 
-/* Secondary / Default button */
-.btn-default,
-.btn-secondary,
-.btn-default-dark,
+/* Default / Secondary — outlined style */
+.btn.btn-default,
+.btn.btn-secondary,
 .page-actions .btn-default,
-a.btn-default {
+.btn-default,
+.btn-secondary {
   background-color: transparent !important;
-  border: 1px solid var(--color-sacro) !important;
-  color: var(--color-sacro) !important;
-  font-family: var(--font-ui) !important;
+  border: 1px solid #3D1A2E !important;
+  color: #3D1A2E !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
   text-transform: uppercase !important;
   letter-spacing: 0.08em !important;
   border-radius: 4px !important;
   font-weight: 400 !important;
-  transition: all 0.2s ease !important;
 }
 
-.btn-default:hover,
-.btn-default:focus,
-.btn-default:active,
-.btn-secondary:hover,
-.btn-secondary:focus,
-.btn-default-dark:hover,
+.btn.btn-default:hover,
+.btn.btn-default:focus,
+.btn.btn-default:active,
+.btn.btn-secondary:hover,
+.btn.btn-secondary:focus,
 .page-actions .btn-default:hover,
-a.btn-default:hover {
-  background-color: var(--color-sacro) !important;
-  border-color: var(--color-sacro) !important;
-  color: var(--color-harina) !important;
+.btn-default:hover,
+.btn-default:active,
+.btn-secondary:hover {
+  background-color: #3D1A2E !important;
+  border-color: #3D1A2E !important;
+  color: #E8DFD0 !important;
 }
 
-/* Small & extra-small buttons */
-.btn-sm,
-.btn-xs {
+/* Ghost button */
+.btn.btn-ghost {
+  background-color: transparent !important;
+  color: #3D1A2E !important;
+}
+
+.btn.btn-ghost:hover,
+.btn.btn-ghost:active {
+  background-color: rgba(61, 26, 46, 0.06) !important;
+  color: #3D1A2E !important;
+}
+
+/* Danger button */
+.btn.btn-danger,
+.btn-danger {
+  background-color: #8B3A4A !important;
+  color: #E8DFD0 !important;
+  border-color: #8B3A4A !important;
+}
+
+/* Outline button — Frappe: .btn-outline */
+.btn-outline {
+  border-color: #DDD5C6 !important;
+  background-color: #FAF8F5 !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+}
+
+/* All buttons: shared font */
+.btn {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
   border-radius: 4px !important;
-  font-family: var(--font-ui) !important;
+}
+
+.btn-sm, .btn-xs {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  letter-spacing: 0.05em !important;
+  border-radius: 4px !important;
+}
+
+
+/* ============================================================
+   6. PAGE LAYOUT & BACKGROUNDS
+   Frappe: .page-container { background-color: var(--bg-color) }
+   Frappe: .layout-main-section.frappe-card - card style
+   Frappe: [data-page-route="Workspaces"] .layout-main-section { background-color: var(--fg-color) }
+   ============================================================ */
+
+.page-container {
+  background-color: #E8DFD0 !important;
+}
+
+.layout-main {
+  background-color: #E8DFD0 !important;
+}
+
+.layout-main-section {
+  background-color: #E8DFD0 !important;
+}
+
+/* Card-style main section — Frappe: .layout-main-section.frappe-card */
+.layout-main-section.frappe-card {
+  background-color: #FAF8F5 !important;
+  border: 1px solid rgba(61, 26, 46, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 1px 3px rgba(26, 17, 24, 0.06) !important;
+}
+
+/* Page head — Frappe: .page-head { position: sticky; border-bottom } */
+.page-head {
+  background-color: #E8DFD0 !important;
+  border-bottom: 1px solid #DDD5C6 !important;
+}
+
+.page-head .page-head-content {
+  background-color: #E8DFD0 !important;
+}
+
+/* Sub heading */
+.page-head .sub-heading {
+  font-family: 'Crimson Pro', 'Georgia', serif !important;
+  color: #5C4A52 !important;
+}
+
+/* Page icon */
+.page-head .page-icon-group svg,
+.page-head .module-icon svg {
+  color: #3D1A2E !important;
+  stroke: #3D1A2E !important;
+}
+
+
+/* ============================================================
+   7. FORMS & CARDS
+   Frappe: .form-section, .form-dashboard-section
+   Frappe: .section-head — section headings
+   Frappe: .form-section.card-section — card-style sections
+   ============================================================ */
+
+/* Form layout container */
+.form-layout {
+  background-color: #FAF8F5 !important;
+}
+
+/* Form sections */
+.form-section,
+.form-dashboard-section {
+  background-color: #FAF8F5 !important;
+}
+
+.form-section.card-section {
+  background-color: #FAF8F5 !important;
+  border: 1px solid rgba(61, 26, 46, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 1px 3px rgba(26, 17, 24, 0.06) !important;
+}
+
+/* Section head — Frappe: .section-head */
+.section-head,
+.form-section .section-head {
+  font-family: 'Cormorant SC', serif !important;
+  color: #3D1A2E !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  font-size: 0.85rem !important;
+}
+
+/* Column label */
+.column-label {
+  font-family: 'Cormorant SC', serif !important;
+  color: #3D1A2E !important;
   letter-spacing: 0.05em !important;
 }
 
-/* Icon-only buttons (like in toolbars) */
-.btn .icon,
-.btn svg {
-  vertical-align: middle !important;
+/* Form messages — Frappe: .form-message.blue/green/yellow/orange/red */
+.form-message {
+  border-radius: 8px !important;
+  font-family: 'Crimson Pro', 'Georgia', serif !important;
 }
 
-
-/* ============================================================
-   7. Cards & Forms
-   ============================================================ */
-
-.frappe-card,
-.form-layout,
-.page-form,
-.frappe-list .result,
-.widget.widget-shadow,
-.widget,
-.form-dashboard,
-.form-message,
-.comment-box,
-.document-link,
-.report-wrapper .result,
-.desk-page .widget-group .widget,
-.section-body,
-.form-section,
-.frappe-form .form-layout {
-  background-color: var(--color-surface-card) !important;
-  border: 1px solid var(--color-border-subtle) !important;
+/* Comment box */
+.comment-box {
+  background-color: #FAF8F5 !important;
   border-radius: 12px !important;
-  box-shadow: var(--shadow-sm) !important;
 }
 
-/* Pages & main content area */
-.layout-main-section,
-.page-container,
-.layout-main,
-.desk-page,
-.module-view,
-.list-paging-area {
-  background-color: var(--color-harina) !important;
+.comment-box .comment-input-header,
+.comment-box .ql-toolbar {
+  background-color: #F2EDE6 !important;
+  border-color: #DDD5C6 !important;
 }
 
-.container.page-body {
-  background-color: var(--color-harina) !important;
+/* Document link */
+.document-link {
+  background-color: #FAF8F5 !important;
+  border: 1px solid rgba(61, 26, 46, 0.08) !important;
+  border-radius: 8px !important;
+}
+
+/* Page form — Frappe: .page-form */
+.page-form {
+  background-color: #FAF8F5 !important;
+}
+
+/* Standard filter section — Frappe: .standard-filter-section */
+.page-form .standard-filter-section {
+  background-color: #FAF8F5 !important;
 }
 
 
 /* ============================================================
-   8. Inputs & Selects
+   8. INPUTS & CONTROLS
+   Frappe: .frappe-control, .form-control, .control-input
+   Frappe: select.form-control, textarea.form-control
    ============================================================ */
 
 .form-control,
 .frappe-control input,
 .frappe-control select,
 .frappe-control textarea,
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="date"],
-input[type="tel"],
-input[type="url"],
-select,
-textarea,
-.ql-editor,
+select.form-control,
+textarea.form-control,
 .like-disabled-input,
 .control-value {
-  background-color: var(--color-surface-elevated) !important;
-  border: 1px solid var(--color-pergamino) !important;
+  background-color: #F2EDE6 !important;
+  border: 1px solid #DDD5C6 !important;
   border-radius: 4px !important;
-  color: var(--color-text-body) !important;
-  font-family: var(--font-body) !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  color: #2E2028 !important;
+  font-family: 'Crimson Pro', 'Georgia', serif !important;
 }
 
 .form-control:focus,
 .frappe-control input:focus,
 .frappe-control select:focus,
-.frappe-control textarea:focus,
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: var(--color-sacro) !important;
+.frappe-control textarea:focus {
+  border-color: #3D1A2E !important;
   box-shadow: 0 0 0 3px rgba(61, 26, 46, 0.1) !important;
   outline: none !important;
+  background-color: #FAF8F5 !important;
 }
 
-/* Placeholder text */
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: #F2EDE6 !important;
+  color: #5C4A52 !important;
+  border-color: #DDD5C6 !important;
+}
+
+/* Placeholder */
+.form-control::placeholder,
+.frappe-control input::placeholder,
 input::placeholder,
-textarea::placeholder,
-.form-control::placeholder {
-  color: var(--color-text-muted) !important;
-  font-family: var(--font-body) !important;
+textarea::placeholder {
+  color: #8A7D82 !important;
+  font-family: 'Crimson Pro', 'Georgia', serif !important;
+}
+
+/* Awesomplete input inside control */
+.awesomplete .input-with-feedback {
+  background-color: #F2EDE6 !important;
+  border-color: #DDD5C6 !important;
+}
+
+/* Checkbox — Frappe: input[type="checkbox"] */
+input[type="checkbox"]:checked,
+.frappe-control input[type="checkbox"]:checked {
+  background-color: #3D1A2E !important;
+  border-color: #3D1A2E !important;
+  accent-color: #3D1A2E !important;
+}
+
+/* Switch */
+input[type="checkbox"][data-switch]:checked {
+  background-color: #3D1A2E !important;
+}
+
+/* Link field buttons */
+.control-input .link-btn,
+.control-input .btn-open,
+.control-input .action-btn {
+  color: #3D1A2E !important;
+}
+
+.control-input .link-btn:hover,
+.control-input .btn-open:hover {
+  color: #6B2D3E !important;
 }
 
 
 /* ============================================================
-   9. Tables
+   9. TABLES & LIST VIEW
+   Frappe: .list-row-head { background-color: var(--subtle-fg); border-radius: var(--border-radius) }
+   Frappe: .list-row { border-bottom: 1px solid var(--border-color) }
+   Frappe: .list-row-container:hover { background-color: var(--highlight-color) }
    ============================================================ */
 
-/* Table header */
-.frappe-list .list-row-head,
-.frappe-list .list-header,
-.result .list-row-head,
-.report-wrapper .dt-header,
-.dt-header .dt-row,
-.datatable .dt-header,
-.frappe-list .list-row-head .list-row-col,
-table thead,
-table thead th,
-.data-row.row-header {
-  background-color: var(--color-pergamino) !important;
-  color: var(--color-sacro) !important;
-  font-family: var(--font-ui) !important;
+/* List row head — Frappe: .list-row-head extends .list-row */
+.list-row-head {
+  background-color: #DDD5C6 !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
   font-weight: 500 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
   font-size: 0.8rem !important;
-  border-bottom: 2px solid var(--color-border-default) !important;
+  color: #3D1A2E !important;
 }
 
-/* Table body rows */
-.frappe-list .list-row,
-.result .list-row,
-.report-wrapper .dt-row,
-.datatable .dt-row,
-table tbody tr {
-  border-bottom: 1px solid var(--color-border-default) !important;
-  transition: background-color 0.15s ease !important;
+/* List row head level-right sticky bg — Frappe: .list-row-head .level-right */
+.list-row-head .level-right {
+  background-color: #DDD5C6 !important;
 }
 
-/* Alternating row colors */
-.frappe-list .list-row:nth-child(even),
-table tbody tr:nth-child(even),
-.dt-row:nth-child(even) {
-  background-color: var(--color-surface-elevated) !important;
+/* List rows */
+.list-row {
+  border-bottom: 1px solid #DDD5C6 !important;
 }
 
-.frappe-list .list-row:nth-child(odd),
-table tbody tr:nth-child(odd),
-.dt-row:nth-child(odd) {
-  background-color: var(--color-surface-card) !important;
+/* Alternating rows via container */
+.list-row-container:nth-child(even) {
+  background-color: #F2EDE6 !important;
 }
 
-/* Table row hover */
-.frappe-list .list-row:hover,
-table tbody tr:hover,
-.dt-row:hover {
-  background-color: var(--color-pergamino) !important;
+.list-row-container:nth-child(odd) {
+  background-color: #FAF8F5 !important;
 }
 
-/* Table cells */
-.frappe-list .list-row .list-row-col,
-table td,
-.dt-cell .dt-cell__content {
-  font-family: var(--font-body) !important;
-  color: var(--color-text-body) !important;
-  border-color: var(--color-border-default) !important;
+/* Hover — Frappe: .list-row-container:hover */
+.list-row-container:hover {
+  background-color: #DDD5C6 !important;
 }
 
-/* Table borders */
-table,
+.list-row-container:hover .level-right {
+  background-color: #DDD5C6 !important;
+}
+
+/* List row level-right sticky — Frappe: .list-row .level-right { background-color: var(--bg-color) } */
+.list-row .level-right {
+  background-color: inherit !important;
+  border-left: 2px solid rgba(61, 26, 46, 0.04) !important;
+}
+
+/* List row columns */
+.list-row-col {
+  font-family: 'Crimson Pro', 'Georgia', serif !important;
+  color: #2E2028 !important;
+}
+
+.list-row-col a {
+  color: #3D1A2E !important;
+}
+
+/* List subject */
+.list-subject a {
+  color: #2E2028 !important;
+}
+
+.list-subject.seen {
+  font-weight: normal !important;
+}
+
+/* List paging area — Frappe: .list-paging-area */
+.list-paging-area {
+  border-top-color: #DDD5C6 !important;
+  background-color: #E8DFD0 !important;
+}
+
+.list-paging-area .btn-paging {
+  background-color: #F2EDE6 !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+}
+
+.list-paging-area .btn-group {
+  border-color: #DDD5C6 !important;
+}
+
+/* Frappe list container */
 .frappe-list {
-  border-color: var(--color-border-default) !important;
+  border-color: #DDD5C6 !important;
+}
+
+/* Generic table overrides */
+table thead,
+table thead th {
+  background-color: #DDD5C6 !important;
+  color: #3D1A2E !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 0.8rem !important;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #DDD5C6 !important;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #F2EDE6 !important;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: #FAF8F5 !important;
+}
+
+table tbody tr:hover {
+  background-color: #DDD5C6 !important;
+}
+
+table td {
+  font-family: 'Crimson Pro', 'Georgia', serif !important;
+  color: #2E2028 !important;
+}
+
+/* Checkbox backgrounds in list */
+input.list-row-checkbox,
+input.list-header-checkbox {
+  background-color: #FAF8F5 !important;
 }
 
 
 /* ============================================================
-   10. Badges & Status Tags
+   10. INDICATORS & BADGES
+   Frappe: .indicator-pill.{color} { background: var(--bg-{color}); color: var(--text-on-{color}) }
+   We already overrode these vars above. Extra specificity here.
    ============================================================ */
 
-/* Base indicator / badge */
 .indicator-pill,
-.badge,
-.indicator-pill.ellipsis {
-  font-family: var(--font-ui) !important;
-  font-weight: 400 !important;
-  letter-spacing: 0.03em !important;
-  border-radius: 4px !important;
+.indicator-pill-right,
+.indicator-pill-round {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  border-radius: 12px !important;
 }
 
-/* Green / Success */
+/* Ensure indicator dots pick up our colors */
 .indicator-pill.green,
-.badge-success,
-.indicator-pill[data-indicator="green"],
+.indicator-pill-right.green,
+.indicator-pill-round.green {
+  background: rgba(107, 127, 94, 0.15) !important;
+  color: #4A5C3F !important;
+}
+.indicator-pill.green::before,
+.indicator-pill-right.green::after,
 .indicator.green::before {
-  background-color: var(--color-status-success-bg) !important;
-  color: var(--color-status-success) !important;
+  background: #4A5C3F !important;
 }
 
-.indicator.green::before,
-.indicator-pill.green::before {
-  background-color: var(--color-status-success) !important;
-}
-
-/* Orange / Warning */
-.indicator-pill.orange,
-.indicator-pill.yellow,
-.badge-warning,
-.indicator-pill[data-indicator="orange"],
-.indicator-pill[data-indicator="yellow"] {
-  background-color: var(--color-status-warning-bg) !important;
-  color: var(--color-status-warning) !important;
-}
-
-.indicator.orange::before,
-.indicator.yellow::before,
-.indicator-pill.orange::before,
-.indicator-pill.yellow::before {
-  background-color: var(--color-status-warning) !important;
-}
-
-/* Red / Danger */
-.indicator-pill.red,
-.badge-danger,
-.indicator-pill[data-indicator="red"] {
-  background-color: var(--color-status-danger-bg) !important;
-  color: var(--color-status-danger) !important;
-}
-
-.indicator.red::before,
-.indicator-pill.red::before {
-  background-color: var(--color-status-danger) !important;
-}
-
-/* Blue / Info → remap to Terracotta */
 .indicator-pill.blue,
-.badge-info,
-.indicator-pill[data-indicator="blue"] {
-  background-color: var(--color-status-info-bg) !important;
-  color: var(--color-status-info) !important;
+.indicator-pill-right.blue,
+.indicator-pill-round.blue {
+  background: rgba(160, 114, 90, 0.15) !important;
+  color: #7A5240 !important;
+}
+.indicator-pill.blue::before,
+.indicator-pill-right.blue::after,
+.indicator.blue::before {
+  background: #7A5240 !important;
 }
 
-.indicator.blue::before,
-.indicator-pill.blue::before {
-  background-color: var(--color-status-info) !important;
+.indicator-pill.red,
+.indicator-pill-right.red,
+.indicator-pill-round.red {
+  background: rgba(139, 58, 74, 0.15) !important;
+  color: #8B3A4A !important;
+}
+.indicator-pill.red::before,
+.indicator-pill-right.red::after,
+.indicator.red::before {
+  background: #8B3A4A !important;
 }
 
-/* Light blue → Oro accent */
-.indicator-pill.light-blue,
-.indicator-pill.cyan,
-.indicator-pill[data-indicator="light-blue"],
-.indicator-pill[data-indicator="cyan"] {
-  background-color: rgba(184, 152, 90, 0.12) !important;
-  color: var(--color-oro) !important;
+.indicator-pill.orange,
+.indicator-pill-right.orange,
+.indicator-pill-round.orange {
+  background: rgba(184, 152, 90, 0.15) !important;
+  color: #8A6E30 !important;
+}
+.indicator-pill.orange::before,
+.indicator-pill-right.orange::after,
+.indicator.orange::before {
+  background: #8A6E30 !important;
 }
 
-/* Gray / Draft */
+.indicator-pill.yellow,
+.indicator-pill-right.yellow,
+.indicator-pill-round.yellow {
+  background: rgba(184, 152, 90, 0.12) !important;
+  color: #8A6E30 !important;
+}
+.indicator-pill.yellow::before,
+.indicator-pill-right.yellow::after,
+.indicator.yellow::before {
+  background: #8A6E30 !important;
+}
+
 .indicator-pill.gray,
 .indicator-pill.grey,
-.badge-secondary,
-.indicator-pill[data-indicator="gray"],
-.indicator-pill[data-indicator="grey"] {
-  background-color: rgba(138, 125, 130, 0.12) !important;
-  color: var(--color-text-muted) !important;
+.indicator-pill-right.gray,
+.indicator-pill-right.grey,
+.indicator-pill-round.gray,
+.indicator-pill-round.grey {
+  background: rgba(138, 125, 130, 0.12) !important;
+  color: #5C4A52 !important;
 }
-
-.indicator.gray::before,
-.indicator.grey::before,
 .indicator-pill.gray::before,
-.indicator-pill.grey::before {
-  background-color: var(--color-text-muted) !important;
+.indicator-pill.grey::before,
+.indicator.gray::before,
+.indicator.grey::before {
+  background: #5C4A52 !important;
 }
 
-/* Purple → Vino Profundo */
 .indicator-pill.purple,
-.indicator-pill[data-indicator="purple"] {
-  background-color: rgba(107, 45, 62, 0.12) !important;
-  color: var(--color-vino-profundo) !important;
+.indicator-pill-right.purple,
+.indicator-pill-round.purple {
+  background: rgba(107, 45, 62, 0.15) !important;
+  color: #6B2D3E !important;
+}
+.indicator-pill.purple::before,
+.indicator-pill-right.purple::after,
+.indicator.purple::before {
+  background: #6B2D3E !important;
 }
 
-.indicator.purple::before,
-.indicator-pill.purple::before {
-  background-color: var(--color-vino-profundo) !important;
+.indicator-pill.cyan,
+.indicator-pill.light-blue,
+.indicator-pill-right.cyan,
+.indicator-pill-right.light-blue {
+  background: rgba(184, 152, 90, 0.12) !important;
+  color: #B8985A !important;
+}
+.indicator-pill.cyan::before,
+.indicator-pill.light-blue::before,
+.indicator.cyan::before,
+.indicator.light-blue::before {
+  background: #B8985A !important;
+}
+
+.indicator-pill.pink,
+.indicator-pill-right.pink {
+  background: rgba(107, 45, 62, 0.10) !important;
+  color: #6B2D3E !important;
 }
 
 
 /* ============================================================
-   11. Workspace (página principal con módulos)
+   11. WORKSPACE & WIDGETS
+   Frappe: .widget { background-color: var(--card-bg); border-radius: var(--border-radius-lg) }
+   Frappe: .widget.shortcut-widget-box { border: 1px solid var(--border-color) }
+   Frappe: .widget.number-widget-box { border: 1px solid var(--border-color) }
+   Frappe: .widget.links-widget-box { border: 1px solid var(--border-color) }
    ============================================================ */
 
-.desk-page,
-.workspace-container,
-#page-home {
-  background-color: var(--color-harina) !important;
+/* Workspace page */
+[data-page-route="Workspaces"] .layout-main-section {
+  background-color: #E8DFD0 !important;
 }
 
-/* Workspace module icons — tintear a sacro / terracotta */
-.desk-page .widget .widget-head .widget-title svg,
-.desk-page .widget-icon svg,
-.workspace-sidebar-item svg,
-.widget .widget-head svg,
-.icon-module svg,
-.module-icon svg {
-  color: var(--color-sacro) !important;
-  stroke: var(--color-sacro) !important;
-  fill: var(--color-sacro) !important;
-}
-
-/* Shortcut icons */
-.desk-page .desk-shortcut .shortcut-icon svg,
-.shortcut-widget-box svg {
-  color: var(--color-terracotta) !important;
-  stroke: var(--color-terracotta) !important;
-}
-
-/* Module/widget titles */
-.desk-page .widget-title,
-.widget .widget-head .widget-title,
-.widget-head .widget-title a,
-.widget-head .widget-label,
-.desk-page .module-card-label,
-.module-card-label {
-  font-family: var(--font-ui) !important;
-  color: var(--color-sacro) !important;
-  font-weight: 500 !important;
-}
-
-/* Shortcut / number card widgets */
-.desk-page .widget.shortcut-widget-box,
-.desk-page .number-widget-box,
-.desk-page .widget.onboarding-widget-box {
-  background-color: var(--color-surface-card) !important;
-  border: 1px solid var(--color-border-subtle) !important;
+/* Widget base */
+.widget {
+  background-color: #FAF8F5 !important;
   border-radius: 12px !important;
-  box-shadow: var(--shadow-sm) !important;
 }
 
-.desk-page .widget.shortcut-widget-box:hover,
-.desk-page .number-widget-box:hover {
-  box-shadow: var(--shadow-md) !important;
+/* Widget group title — Frappe: .widget-group-title { color: var(--heading-color) } */
+.widget-group .widget-group-title {
+  color: #3D1A2E !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  font-weight: 600 !important;
+}
+
+/* Widget title — Frappe: .widget-title { color: var(--text-color) } */
+.widget .widget-head .widget-label .widget-title {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  color: #3D1A2E !important;
+}
+
+/* Widget icons — tint to sacro */
+.widget .widget-head .widget-label .widget-title svg {
+  color: #3D1A2E !important;
+  stroke: #3D1A2E !important;
+}
+
+/* Shortcut widget — Frappe: .widget.shortcut-widget-box */
+.widget.shortcut-widget-box {
+  border: 1px solid rgba(61, 26, 46, 0.08) !important;
+  box-shadow: 0 1px 3px rgba(26, 17, 24, 0.06) !important;
+}
+
+.widget.shortcut-widget-box:hover {
+  border-color: #3D1A2E !important;
+  box-shadow: 0 4px 12px rgba(26, 17, 24, 0.08) !important;
+}
+
+.widget.shortcut-widget-box .widget-label .widget-title {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Number widget — Frappe: .widget.number-widget-box */
+.widget.number-widget-box {
+  border: 1px solid rgba(61, 26, 46, 0.08) !important;
+  box-shadow: 0 1px 3px rgba(26, 17, 24, 0.06) !important;
+}
+
+.widget.number-widget-box .widget-head .widget-title {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+}
+
+.widget.number-widget-box .widget-body .widget-content .number {
+  color: #3D1A2E !important;
+  font-family: 'Playfair Display', 'Georgia', serif !important;
+}
+
+/* Links widget — Frappe: .widget.links-widget-box */
+.widget.links-widget-box {
+  border: 1px solid rgba(61, 26, 46, 0.08) !important;
+}
+
+.widget.links-widget-box .link-item .link-content {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  color: #2E2028 !important;
+}
+
+.widget.links-widget-box .link-item .link-content:hover {
+  color: #3D1A2E !important;
+}
+
+/* Dashboard widget */
+.widget.dashboard-widget-box {
+  border: 1px solid rgba(61, 26, 46, 0.08) !important;
+}
+
+/* Onboarding widget — Frappe: .widget.onboarding-widget-box */
+.widget.onboarding-widget-box {
+  background-color: #E8DFD0 !important;
+  border-bottom: 1px solid #DDD5C6 !important;
+}
+
+/* New widget placeholder */
+.widget.new-widget {
+  background-color: #F2EDE6 !important;
+  border: 1px dashed #8A7D82 !important;
+  color: #8A7D82 !important;
+}
+
+/* Workspace skeleton */
+.workspace-skeleton .skeleton-card {
+  background-color: #F2EDE6 !important;
 }
 
 
 /* ============================================================
-   12. Indicators, Progress Bars & Notifications
+   12. PROGRESS BARS & NOTIFICATIONS
+   Frappe: .progress { height: 10px }
+   Frappe: --progress-bar-bg: var(--primary)
    ============================================================ */
-
-/* Progress bars */
-.progress-bar,
-.progress .progress-bar,
-.frappe-control .progress-bar {
-  background-color: var(--color-sacro) !important;
-}
 
 .progress {
-  background-color: var(--color-pergamino) !important;
+  background-color: #DDD5C6 !important;
   border-radius: 4px !important;
 }
 
-/* Notification badge (keep red, just harmonize) */
-.notifications-icon .badge,
+.progress-bar {
+  background-color: #3D1A2E !important;
+}
+
+/* Notification badge */
 .navbar .badge,
-.notification-badge {
-  background-color: var(--color-status-danger) !important;
-  color: var(--color-harina) !important;
-  font-family: var(--font-ui) !important;
+.notifications-icon .badge {
+  background-color: #8B3A4A !important;
+  color: #E8DFD0 !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
 }
 
 
 /* ============================================================
-   13. Filter Section & List View
+   13. MODALS & DIALOGS
+   Frappe: .modal .modal-content { border-color: var(--border-color) }
+   Frappe: .modal .modal-header { background: inherit; border-bottom: 1px solid var(--border-color) }
+   Frappe: .modal .modal-footer { background: inherit }
    ============================================================ */
 
-.standard-filter-section,
-.list-filters,
-.filter-section {
-  background-color: var(--color-surface-elevated) !important;
-  border-bottom: 1px solid var(--color-pergamino) !important;
-}
-
-.frappe-list .no-result,
-.list-paging-area .btn-paging,
-.frappe-list .list-count {
-  font-family: var(--font-ui) !important;
-  color: var(--color-text-secondary) !important;
-}
-
-/* Like button / heart (in list) */
-.like-active-item .like-action,
-.liked-by .like-action {
-  color: var(--color-vino-profundo) !important;
-}
-
-/* Comment count, attachment indicators */
-.comment-count,
-.attachment-count {
-  color: var(--color-text-muted) !important;
-  font-family: var(--font-ui) !important;
-}
-
-
-/* ============================================================
-   14. Dialogs & Modals
-   ============================================================ */
-
-.modal-content,
-.modal-dialog .modal-content,
-.frappe-modal .modal-content {
-  background-color: var(--color-surface-card) !important;
-  border: 1px solid var(--color-border-subtle) !important;
+.modal .modal-content {
+  background-color: #FAF8F5 !important;
+  border-color: rgba(61, 26, 46, 0.08) !important;
   border-radius: 12px !important;
-  box-shadow: var(--shadow-lg) !important;
+  box-shadow: 0 8px 30px rgba(26, 17, 24, 0.10) !important;
 }
 
-.modal-header {
-  border-bottom: 1px solid var(--color-border-default) !important;
-  background-color: var(--color-surface-elevated) !important;
+.modal .modal-header {
+  background-color: #F2EDE6 !important;
+  border-bottom: 1px solid #DDD5C6 !important;
   border-radius: 12px 12px 0 0 !important;
 }
 
-.modal-header .modal-title {
-  font-family: var(--font-display) !important;
-  color: var(--color-sacro) !important;
+.modal .modal-header .modal-title {
+  font-family: 'Playfair Display', 'Georgia', serif !important;
+  color: #3D1A2E !important;
   font-weight: 700 !important;
 }
 
-.modal-footer {
-  border-top: 1px solid var(--color-border-default) !important;
-  background-color: var(--color-surface-elevated) !important;
+.modal .modal-body {
+  background-color: #FAF8F5 !important;
+}
+
+.modal .modal-footer {
+  background-color: #F2EDE6 !important;
+  border-top: 1px solid #DDD5C6 !important;
   border-radius: 0 0 12px 12px !important;
 }
 
 .modal-backdrop.show {
   background-color: rgba(26, 17, 24, 0.5) !important;
+  opacity: 0.8 !important;
 }
 
 
 /* ============================================================
-   15. Awesomebar (search overlay)
+   14. AWESOMEBAR (search overlay)
+   Frappe: .search-bar .awesomplete { ul { border-radius; box-shadow } }
    ============================================================ */
 
-.awesomebar-container,
-.search-dialog .modal-content {
-  background-color: var(--color-surface-card) !important;
-  border-radius: 12px !important;
+.search-bar .awesomplete ul {
+  background-color: #FAF8F5 !important;
+  border: 1px solid #DDD5C6 !important;
+  border-radius: 0 0 8px 8px !important;
 }
 
-.awesomebar-container input,
-.search-dialog input {
-  font-family: var(--font-ui) !important;
-  color: var(--color-text-body) !important;
-  background-color: var(--color-surface-elevated) !important;
+.search-bar .awesomplete input:focus {
+  background-color: rgba(232, 223, 208, 0.25) !important;
 }
 
-.awesomebar-container .awesomebar-result,
-.search-dialog .search-result {
-  font-family: var(--font-ui) !important;
-}
-
-.awesomebar-container .awesomebar-result:hover,
-.search-dialog .search-result:hover {
-  background-color: var(--color-pergamino) !important;
+/* Modal search (cool awesomebar) */
+.awesomebar-modal-footer {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
 }
 
 
 /* ============================================================
-   16. Page Head & Actions
+   15. FORM TABS
+   Frappe: .form-tabs-list
    ============================================================ */
 
-.page-head,
-.page-head .page-head-content {
-  background-color: var(--color-harina) !important;
-  border-bottom: 1px solid var(--color-border-default) !important;
-}
-
-.page-head .page-title .title-text {
-  font-family: var(--font-display) !important;
-  color: var(--color-sacro) !important;
-}
-
-/* Sub-heading / subtitle */
-.page-head .sub-heading,
-.page-sub-head {
-  font-family: var(--font-body) !important;
-  color: var(--color-text-secondary) !important;
-}
-
-/* Page icon */
-.page-head .page-icon-group svg,
-.page-head .module-icon svg {
-  color: var(--color-sacro) !important;
-  stroke: var(--color-sacro) !important;
-}
-
-
-/* ============================================================
-   17. Timeline & Activity
-   ============================================================ */
-
-.timeline-item,
-.form-footer .timeline-item {
-  border-left: 2px solid var(--color-pergamino) !important;
-}
-
-.timeline-item .timeline-dot {
-  background-color: var(--color-sacro) !important;
-  border-color: var(--color-sacro) !important;
-}
-
-.timeline-item .timeline-content {
-  font-family: var(--font-body) !important;
-  color: var(--color-text-body) !important;
-}
-
-.comment-box .comment-input-header,
-.comment-box .ql-toolbar {
-  background-color: var(--color-surface-elevated) !important;
-  border-color: var(--color-border-default) !important;
-}
-
-
-/* ============================================================
-   18. Tabs (form view tabs)
-   ============================================================ */
-
-.form-tabs .nav-item .nav-link,
-.frappe-form .form-tabs .nav-link,
 .form-tabs-list .nav-link {
-  font-family: var(--font-ui) !important;
-  color: var(--color-text-secondary) !important;
-  border-bottom: 2px solid transparent !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  color: #5C4A52 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
   font-size: 0.85rem !important;
 }
 
-.form-tabs .nav-item .nav-link.active,
-.frappe-form .form-tabs .nav-link.active,
 .form-tabs-list .nav-link.active {
-  color: var(--color-sacro) !important;
-  border-bottom-color: var(--color-sacro) !important;
+  color: #3D1A2E !important;
+  border-bottom: 2px solid #3D1A2E !important;
   font-weight: 500 !important;
 }
 
-.form-tabs .nav-item .nav-link:hover,
 .form-tabs-list .nav-link:hover {
-  color: var(--color-vino-profundo) !important;
+  color: #6B2D3E !important;
 }
 
 
 /* ============================================================
-   19. Frappe Chat & Help bubbles
+   16. TIMELINE
+   Frappe: --timeline-badge-color, --timeline-badge-bg
    ============================================================ */
 
-.chat-bubble,
-.chat-message {
-  border-radius: 12px !important;
-  font-family: var(--font-body) !important;
+.timeline-item {
+  font-family: 'Crimson Pro', 'Georgia', serif !important;
 }
 
 
 /* ============================================================
-   20. Print Format adjustments
+   17. DROPDOWNS (global)
+   Frappe: .dropdown-menu { padding: 4px; border: 1px solid var(--subtle-accent) }
+   Frappe: .dropdown-item { border-radius: 8px }
+   ============================================================ */
+
+.dropdown-menu {
+  background-color: #FAF8F5 !important;
+  border: 1px solid rgba(61, 26, 46, 0.08) !important;
+  box-shadow: 0 4px 12px rgba(26, 17, 24, 0.08) !important;
+}
+
+.dropdown-item {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  color: #2E2028 !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: #F2EDE6 !important;
+  color: #3D1A2E !important;
+}
+
+/* Override for navbar dropdowns (keep dark) */
+.navbar .dropdown-menu {
+  background-color: #3D1A2E !important;
+}
+
+.navbar .dropdown-menu .dropdown-item {
+  color: #E8DFD0 !important;
+}
+
+.navbar .dropdown-menu .dropdown-item:hover {
+  background-color: #6B2D3E !important;
+  color: #E8DFD0 !important;
+}
+
+
+/* ============================================================
+   18. FILTER SECTION
+   Frappe: .page-form .standard-filter-section, .filter-section
+   ============================================================ */
+
+.filter-section {
+  background-color: #FAF8F5 !important;
+}
+
+.page-form .filter-selector .btn-group .filter-label {
+  background-color: #F2EDE6 !important;
+  color: #3D1A2E !important;
+}
+
+
+/* ============================================================
+   19. FRAPPE DATATABLE
+   Frappe: .dt-header, .dt-row, .dt-cell
+   ============================================================ */
+
+.dt-header .dt-row,
+.dt-header {
+  background-color: #DDD5C6 !important;
+}
+
+.dt-header .dt-cell .dt-cell__content {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  color: #3D1A2E !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+.dt-cell .dt-cell__content {
+  font-family: 'Crimson Pro', 'Georgia', serif !important;
+  color: #2E2028 !important;
+}
+
+.dt-row:nth-child(even) {
+  background-color: #F2EDE6 !important;
+}
+
+.dt-row:nth-child(odd) {
+  background-color: #FAF8F5 !important;
+}
+
+.dt-scrollable .dt-row:hover {
+  background-color: #DDD5C6 !important;
+}
+
+
+/* ============================================================
+   20. PRINT
    ============================================================ */
 
 @media print {
   body {
-    font-family: var(--font-body) !important;
-    color: var(--color-text-body) !important;
+    font-family: 'Crimson Pro', 'Georgia', serif !important;
+    color: #2E2028 !important;
+    background-color: white !important;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display) !important;
-    color: var(--color-sacro) !important;
+    font-family: 'Playfair Display', 'Georgia', serif !important;
+    color: #3D1A2E !important;
   }
 }
 
 
 /* ============================================================
-   21. Scrollbars (Webkit)
+   21. SCROLLBARS (Webkit)
    ============================================================ */
 
 ::-webkit-scrollbar {
@@ -954,169 +1365,131 @@ table,
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-surface-elevated);
+  background: #F2EDE6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-pergamino);
+  background: #DDD5C6;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-muted);
+  background: #8A7D82;
 }
 
 
 /* ============================================================
-   22. Miscellaneous Frappe overrides
+   22. MISCELLANEOUS
    ============================================================ */
 
-/* Frappe control read-only */
-.like-disabled-input,
-.control-value.like-disabled-input {
-  background-color: var(--color-surface-elevated) !important;
-  color: var(--color-text-body) !important;
-  border-color: var(--color-border-default) !important;
+/* Text helpers */
+.text-muted {
+  color: #8A7D82 !important;
 }
 
-/* Section break heading */
-.section-head,
-.form-section .section-head {
-  font-family: var(--font-accent) !important;
-  color: var(--color-sacro) !important;
-  letter-spacing: 0.08em !important;
-  text-transform: uppercase !important;
-  font-size: 0.85rem !important;
-  border-bottom: 1px solid var(--color-border-default) !important;
-  padding-bottom: 0.5rem !important;
-}
-
-/* Column break labels */
-.frappe-control .control-label {
-  font-family: var(--font-ui) !important;
-  color: var(--color-text-secondary) !important;
-  font-weight: 400 !important;
-  letter-spacing: 0.02em !important;
-}
-
-/* Help text */
-.help-text,
-.text-muted,
 .text-extra-muted {
-  color: var(--color-text-muted) !important;
-  font-family: var(--font-body) !important;
+  color: #8A7D82 !important;
 }
 
 /* Selection highlight */
 ::selection {
   background-color: rgba(61, 26, 46, 0.15);
-  color: var(--color-carbon);
+  color: #1A1118;
 }
 
 /* Tooltips */
 .tooltip-inner {
-  background-color: var(--color-carbon) !important;
-  color: var(--color-harina) !important;
-  font-family: var(--font-ui) !important;
+  background-color: #1A1118 !important;
+  color: #E8DFD0 !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
   border-radius: 4px !important;
-  font-size: 0.8rem !important;
 }
 
-.tooltip .arrow::before,
-.bs-tooltip-top .arrow::before {
-  border-top-color: var(--color-carbon) !important;
+/* Tags / pills in multi-select */
+.frappe-control .frappe-tag-area .btn-tag {
+  background-color: rgba(61, 26, 46, 0.08) !important;
+  color: #3D1A2E !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  border-radius: 4px !important;
 }
 
-/* Alert / system messages */
+/* Empty state */
+.msg-box,
+.null-state {
+  color: #8A7D82 !important;
+  font-family: 'Crimson Pro', 'Georgia', serif !important;
+}
+
+/* Pill badge */
+.pill {
+  background: #8A7D82 !important;
+  color: #E8DFD0 !important;
+}
+
+/* Like button */
+.like-active-item .like-action {
+  color: #6B2D3E !important;
+}
+
+/* Alert / desk alert */
 .desk-alert,
 .system-alert {
-  font-family: var(--font-ui) !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
   border-radius: 8px !important;
 }
 
-/* Empty state / no results */
-.no-result-message,
-.empty-state {
-  color: var(--color-text-muted) !important;
-  font-family: var(--font-body) !important;
-}
-
-.no-result-message svg,
-.empty-state svg {
-  color: var(--color-pergamino) !important;
-}
-
-/* Control buttons inside inputs (like link field arrows) */
-.control-input .link-btn,
-.control-input .btn-open {
-  color: var(--color-sacro) !important;
-}
-
-.control-input .link-btn:hover,
-.control-input .btn-open:hover {
-  color: var(--color-vino-profundo) !important;
-}
-
-/* Checkbox override */
-.frappe-control input[type="checkbox"]:checked {
-  background-color: var(--color-sacro) !important;
-  border-color: var(--color-sacro) !important;
-}
-
-/* Tag / pill in multi-select */
-.frappe-control .frappe-tag-area .btn-tag {
-  background-color: rgba(61, 26, 46, 0.08) !important;
-  color: var(--color-sacro) !important;
-  font-family: var(--font-ui) !important;
-  border-radius: 4px !important;
+/* Standard sidebar (legacy form sidebar) */
+.standard-sidebar .standard-sidebar-item {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
 }
 
 
 /* ============================================================
-   23. Custom Baroque Elements
+   23. CUSTOM BAROQUE ELEMENTS
    ============================================================ */
 
 .baroque-divider {
   height: 1px;
-  background: var(--color-pergamino);
+  background: #DDD5C6;
   margin: 2rem 0;
   position: relative;
   overflow: visible;
 }
 
 .baroque-divider::after {
-  content: '\2767';  /* ❧ */
+  content: '\2767';
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: var(--color-harina);
+  background: #E8DFD0;
   padding: 0 1rem;
-  color: var(--color-sacro);
+  color: #3D1A2E;
   font-size: 1.5rem;
 }
 
 
 /* ============================================================
-   24. Ensure no white or black puro
-   Global safety net
+   24. LOGIN PAGE
+   Frappe: .page-card, .page-card-head, .page-card-body
    ============================================================ */
 
-/* Override any Frappe element that might use pure white */
-.frappe-card,
-.form-group,
-.frappe-list,
-.page-container,
-.layout-main-section,
-.desk-page,
-.module-view {
-  background-color: var(--color-harina) !important;
+.page-card {
+  background-color: #FAF8F5 !important;
+  border: 1px solid rgba(61, 26, 46, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(26, 17, 24, 0.08) !important;
 }
 
-/* Cards specifically should be off-white */
-.frappe-card,
-.form-layout,
-.page-form,
-.frappe-list .result {
-  background-color: var(--color-surface-card) !important;
+.page-card-head {
+  font-family: 'Playfair Display', 'Georgia', serif !important;
+}
+
+.page-card-body .btn-primary {
+  background-color: #3D1A2E !important;
+  border-color: #3D1A2E !important;
+  color: #E8DFD0 !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
 }
