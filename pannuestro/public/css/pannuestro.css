@@ -1,6 +1,14 @@
-/* Pan Nuestro Visual Theme */
+/* ============================================================
+   Pan Nuestro — Visual Theme for ERPNext / Frappe
+   Full visual overhaul: every component branded to Pan Nuestro
+   ============================================================ */
 
+/* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Crimson+Pro:wght@300;400;600&family=Jost:wght@300;400;500&family=Cormorant+SC:wght@400;600&display=swap');
+
+/* ============================================================
+   1. CSS Custom Properties (Design Tokens)
+   ============================================================ */
 
 :root {
   /* Primarios */
@@ -39,11 +47,25 @@
   --font-body: 'Crimson Pro', 'Georgia', serif;
   --font-ui: 'Jost', 'Helvetica Neue', sans-serif;
   --font-accent: 'Cormorant SC', serif;
+
+  /* Status colors (armonizados con la paleta) */
+  --color-status-success: #6B7F5E;
+  --color-status-success-bg: rgba(107, 127, 94, 0.12);
+  --color-status-warning: #B8985A;
+  --color-status-warning-bg: rgba(184, 152, 90, 0.12);
+  --color-status-danger: #8B3A4A;
+  --color-status-danger-bg: rgba(139, 58, 74, 0.12);
+  --color-status-info: #A0725A;
+  --color-status-info-bg: rgba(160, 114, 90, 0.12);
 }
 
-/* Frappe Overrides */
 
-body {
+/* ============================================================
+   2. Body & Base Typography
+   ============================================================ */
+
+body,
+body.frappe-web {
   background-color: var(--color-harina) !important;
   font-family: var(--font-body) !important;
   font-weight: 300 !important;
@@ -51,40 +73,247 @@ body {
   line-height: 1.7 !important;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6,
+.page-title,
+.ellipsis.title-text,
+.title-text {
   font-family: var(--font-display) !important;
   color: var(--color-sacro) !important;
   font-weight: 700 !important;
 }
 
-.navbar {
-  background-color: var(--color-sacro) !important;
-  border-bottom: 1px solid var(--color-vino-profundo) !important;
+p, span, div, li, td, th, label {
+  font-family: inherit;
 }
 
-.navbar .navbar-brand, .navbar .nav-link {
+/* Labels, small UI text */
+label,
+.control-label,
+.frappe-control .label,
+.like-disabled-input .label,
+.indicator-pill,
+.nav-link,
+.sidebar-label,
+.desk-sidebar .sidebar-label {
+  font-family: var(--font-ui) !important;
+}
+
+
+/* ============================================================
+   3. Navbar (barra superior)
+   ============================================================ */
+
+.navbar,
+header .navbar,
+.navbar-expand,
+.navbar.navbar-expand,
+#navbar-breadcrumbs,
+.container .navbar {
+  background-color: var(--color-sacro) !important;
+  border-bottom: 2px solid var(--color-vino-profundo) !important;
+  box-shadow: 0 2px 8px rgba(26, 17, 24, 0.15) !important;
+}
+
+/* Navbar text, icons, brand */
+.navbar .navbar-brand,
+.navbar .nav-link,
+.navbar .navbar-nav .nav-link,
+.navbar .navbar-nav > li > a,
+.navbar .navbar-brand img + span,
+.navbar .navbar-home,
+.navbar .notifications-icon,
+.navbar .navbar-icon-text,
+.navbar .search-bar .search-icon,
+.navbar .dropdown-toggle,
+.navbar a,
+.navbar span,
+.navbar .navbar-right .nav-link {
   color: var(--color-harina) !important;
   font-family: var(--font-ui) !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
 }
 
-.desk-sidebar {
-  background-color: var(--color-surface-elevated) !important;
-  border-right: 1px solid var(--color-pergamino) !important;
+/* Navbar SVG icons */
+.navbar svg,
+.navbar .es-icon,
+.navbar use,
+.navbar .icon {
+  stroke: var(--color-harina) !important;
+  color: var(--color-harina) !important;
+  fill: currentColor !important;
 }
 
-.desk-sidebar .standard-sidebar-item {
+/* Navbar search bar */
+.navbar .search-bar,
+.navbar .search-bar input,
+.navbar .form-control.navbar-search,
+.navbar input[type="text"],
+.search-bar .awesomplete input {
+  background-color: rgba(232, 223, 208, 0.15) !important;
+  color: var(--color-harina) !important;
+  border: 1px solid rgba(232, 223, 208, 0.25) !important;
+  border-radius: 4px !important;
   font-family: var(--font-ui) !important;
-  color: var(--color-carbon) !important;
 }
 
-.desk-sidebar .standard-sidebar-item.active {
-  background-color: var(--color-sacro) !important;
+.navbar .search-bar input::placeholder,
+.navbar input::placeholder {
+  color: rgba(232, 223, 208, 0.6) !important;
+}
+
+/* Navbar hover */
+.navbar .nav-link:hover,
+.navbar .nav-link:focus,
+.navbar .navbar-nav > li > a:hover,
+.navbar .dropdown-toggle:hover,
+.navbar a:hover {
+  background-color: var(--color-vino-profundo) !important;
   color: var(--color-harina) !important;
 }
 
-.btn-primary {
+/* Navbar dropdown menus */
+.navbar .dropdown-menu {
+  background-color: var(--color-sacro) !important;
+  border: 1px solid var(--color-vino-profundo) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.navbar .dropdown-menu .dropdown-item,
+.navbar .dropdown-menu a {
+  color: var(--color-harina) !important;
+  font-family: var(--font-ui) !important;
+}
+
+.navbar .dropdown-menu .dropdown-item:hover,
+.navbar .dropdown-menu a:hover {
+  background-color: var(--color-vino-profundo) !important;
+}
+
+/* Breadcrumbs in navbar */
+.breadcrumb-container,
+.breadcrumb,
+#navbar-breadcrumbs a,
+#navbar-breadcrumbs li,
+.breadcrumb-item,
+.breadcrumb-item a {
+  color: var(--color-harina) !important;
+  font-family: var(--font-ui) !important;
+}
+
+#navbar-breadcrumbs .breadcrumb-item + .breadcrumb-item::before {
+  color: rgba(232, 223, 208, 0.5) !important;
+}
+
+
+/* ============================================================
+   4. Sidebar (menú lateral izquierdo)
+   ============================================================ */
+
+.desk-sidebar,
+.layout-side-section,
+.col-lg-2.layout-side-section,
+.desk-sidebar .sidebar-menu {
+  background-color: var(--color-surface-card) !important;
+  border-right: 1px solid var(--color-border-default) !important;
+}
+
+/* Sidebar menu items */
+.desk-sidebar .standard-sidebar-item,
+.desk-sidebar .sidebar-menu .standard-sidebar-item a,
+.desk-sidebar a,
+.sidebar-menu a,
+.standard-sidebar-item a,
+.standard-sidebar-item span {
+  font-family: var(--font-ui) !important;
+  color: var(--color-text-body) !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Sidebar active item — subtle bg + left border accent */
+.desk-sidebar .standard-sidebar-item.active,
+.desk-sidebar .standard-sidebar-item.selected,
+.sidebar-menu .standard-sidebar-item.active,
+.standard-sidebar-item.active {
+  background-color: rgba(61, 26, 46, 0.06) !important;
+  border-left: 3px solid var(--color-sacro) !important;
+  color: var(--color-sacro) !important;
+}
+
+.desk-sidebar .standard-sidebar-item.active a,
+.desk-sidebar .standard-sidebar-item.active span,
+.desk-sidebar .standard-sidebar-item.selected a,
+.desk-sidebar .standard-sidebar-item.selected span {
+  color: var(--color-sacro) !important;
+  font-weight: 500 !important;
+}
+
+/* Sidebar hover */
+.desk-sidebar .standard-sidebar-item:hover,
+.sidebar-menu .standard-sidebar-item:hover,
+.standard-sidebar-item:hover {
+  background-color: var(--color-pergamino) !important;
+}
+
+/* Sidebar icons */
+.desk-sidebar .standard-sidebar-item svg,
+.desk-sidebar .standard-sidebar-item .icon,
+.desk-sidebar .sidebar-icon,
+.sidebar-menu svg,
+.standard-sidebar-item svg {
+  color: var(--color-sacro) !important;
+  stroke: var(--color-sacro) !important;
+}
+
+/* Sidebar section headers ("PÚBLICO", etc.) */
+.desk-sidebar .sidebar-label,
+.sidebar-label,
+.sidebar-section .sidebar-label,
+.desk-sidebar .list-sidebar .sidebar-label,
+.sidebar-menu .sidebar-label {
+  font-family: var(--font-accent) !important;
+  letter-spacing: 0.1em !important;
+  color: var(--color-text-muted) !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  padding: 0.75rem 0 0.25rem 0.5rem !important;
+}
+
+
+/* ============================================================
+   5. Links
+   ============================================================ */
+
+a,
+a:visited {
+  color: var(--color-sacro) !important;
+  transition: color 0.15s ease !important;
+}
+
+a:hover,
+a:focus {
+  color: var(--color-vino-profundo) !important;
+  text-decoration: underline !important;
+}
+
+/* Keep navbar and sidebar link overrides from conflicting */
+.navbar a,
+.navbar a:visited,
+.navbar a:hover { text-decoration: none !important; }
+
+
+/* ============================================================
+   6. Buttons
+   ============================================================ */
+
+/* Primary button */
+.btn-primary,
+.btn-primary-dark,
+.page-actions .btn-primary,
+.primary-action,
+a.btn-primary {
   background-color: var(--color-sacro) !important;
   border-color: var(--color-sacro) !important;
   color: var(--color-harina) !important;
@@ -92,39 +321,761 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase !important;
   letter-spacing: 0.08em !important;
   border-radius: 4px !important;
+  font-weight: 400 !important;
+  transition: all 0.2s ease !important;
 }
 
-.btn-primary:hover, .btn-primary:focus {
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary-dark:hover,
+.btn-primary-dark:focus,
+.page-actions .btn-primary:hover,
+.primary-action:hover {
   background-color: var(--color-vino-profundo) !important;
   border-color: var(--color-vino-profundo) !important;
+  color: var(--color-harina) !important;
 }
 
-.form-control, .frappe-control input, .frappe-control select, .frappe-control textarea {
+/* Secondary / Default button */
+.btn-default,
+.btn-secondary,
+.btn-default-dark,
+.page-actions .btn-default,
+a.btn-default {
+  background-color: transparent !important;
+  border: 1px solid var(--color-sacro) !important;
+  color: var(--color-sacro) !important;
+  font-family: var(--font-ui) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  border-radius: 4px !important;
+  font-weight: 400 !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-default-dark:hover,
+.page-actions .btn-default:hover,
+a.btn-default:hover {
+  background-color: var(--color-sacro) !important;
+  border-color: var(--color-sacro) !important;
+  color: var(--color-harina) !important;
+}
+
+/* Small & extra-small buttons */
+.btn-sm,
+.btn-xs {
+  border-radius: 4px !important;
+  font-family: var(--font-ui) !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Icon-only buttons (like in toolbars) */
+.btn .icon,
+.btn svg {
+  vertical-align: middle !important;
+}
+
+
+/* ============================================================
+   7. Cards & Forms
+   ============================================================ */
+
+.frappe-card,
+.form-layout,
+.page-form,
+.frappe-list .result,
+.widget.widget-shadow,
+.widget,
+.form-dashboard,
+.form-message,
+.comment-box,
+.document-link,
+.report-wrapper .result,
+.desk-page .widget-group .widget,
+.section-body,
+.form-section,
+.frappe-form .form-layout {
   background-color: var(--color-surface-card) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+/* Pages & main content area */
+.layout-main-section,
+.page-container,
+.layout-main,
+.desk-page,
+.module-view,
+.list-paging-area {
+  background-color: var(--color-harina) !important;
+}
+
+.container.page-body {
+  background-color: var(--color-harina) !important;
+}
+
+
+/* ============================================================
+   8. Inputs & Selects
+   ============================================================ */
+
+.form-control,
+.frappe-control input,
+.frappe-control select,
+.frappe-control textarea,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="date"],
+input[type="tel"],
+input[type="url"],
+select,
+textarea,
+.ql-editor,
+.like-disabled-input,
+.control-value {
+  background-color: var(--color-surface-elevated) !important;
   border: 1px solid var(--color-pergamino) !important;
   border-radius: 4px !important;
   color: var(--color-text-body) !important;
+  font-family: var(--font-body) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-.form-control:focus {
+.form-control:focus,
+.frappe-control input:focus,
+.frappe-control select:focus,
+.frappe-control textarea:focus,
+input:focus,
+select:focus,
+textarea:focus {
   border-color: var(--color-sacro) !important;
   box-shadow: 0 0 0 3px rgba(61, 26, 46, 0.1) !important;
+  outline: none !important;
 }
 
-.layout-main-section {
+/* Placeholder text */
+input::placeholder,
+textarea::placeholder,
+.form-control::placeholder {
+  color: var(--color-text-muted) !important;
+  font-family: var(--font-body) !important;
+}
+
+
+/* ============================================================
+   9. Tables
+   ============================================================ */
+
+/* Table header */
+.frappe-list .list-row-head,
+.frappe-list .list-header,
+.result .list-row-head,
+.report-wrapper .dt-header,
+.dt-header .dt-row,
+.datatable .dt-header,
+.frappe-list .list-row-head .list-row-col,
+table thead,
+table thead th,
+.data-row.row-header {
+  background-color: var(--color-pergamino) !important;
+  color: var(--color-sacro) !important;
+  font-family: var(--font-ui) !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 0.8rem !important;
+  border-bottom: 2px solid var(--color-border-default) !important;
+}
+
+/* Table body rows */
+.frappe-list .list-row,
+.result .list-row,
+.report-wrapper .dt-row,
+.datatable .dt-row,
+table tbody tr {
+  border-bottom: 1px solid var(--color-border-default) !important;
+  transition: background-color 0.15s ease !important;
+}
+
+/* Alternating row colors */
+.frappe-list .list-row:nth-child(even),
+table tbody tr:nth-child(even),
+.dt-row:nth-child(even) {
+  background-color: var(--color-surface-elevated) !important;
+}
+
+.frappe-list .list-row:nth-child(odd),
+table tbody tr:nth-child(odd),
+.dt-row:nth-child(odd) {
+  background-color: var(--color-surface-card) !important;
+}
+
+/* Table row hover */
+.frappe-list .list-row:hover,
+table tbody tr:hover,
+.dt-row:hover {
+  background-color: var(--color-pergamino) !important;
+}
+
+/* Table cells */
+.frappe-list .list-row .list-row-col,
+table td,
+.dt-cell .dt-cell__content {
+  font-family: var(--font-body) !important;
+  color: var(--color-text-body) !important;
+  border-color: var(--color-border-default) !important;
+}
+
+/* Table borders */
+table,
+.frappe-list {
+  border-color: var(--color-border-default) !important;
+}
+
+
+/* ============================================================
+   10. Badges & Status Tags
+   ============================================================ */
+
+/* Base indicator / badge */
+.indicator-pill,
+.badge,
+.indicator-pill.ellipsis {
+  font-family: var(--font-ui) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.03em !important;
+  border-radius: 4px !important;
+}
+
+/* Green / Success */
+.indicator-pill.green,
+.badge-success,
+.indicator-pill[data-indicator="green"],
+.indicator.green::before {
+  background-color: var(--color-status-success-bg) !important;
+  color: var(--color-status-success) !important;
+}
+
+.indicator.green::before,
+.indicator-pill.green::before {
+  background-color: var(--color-status-success) !important;
+}
+
+/* Orange / Warning */
+.indicator-pill.orange,
+.indicator-pill.yellow,
+.badge-warning,
+.indicator-pill[data-indicator="orange"],
+.indicator-pill[data-indicator="yellow"] {
+  background-color: var(--color-status-warning-bg) !important;
+  color: var(--color-status-warning) !important;
+}
+
+.indicator.orange::before,
+.indicator.yellow::before,
+.indicator-pill.orange::before,
+.indicator-pill.yellow::before {
+  background-color: var(--color-status-warning) !important;
+}
+
+/* Red / Danger */
+.indicator-pill.red,
+.badge-danger,
+.indicator-pill[data-indicator="red"] {
+  background-color: var(--color-status-danger-bg) !important;
+  color: var(--color-status-danger) !important;
+}
+
+.indicator.red::before,
+.indicator-pill.red::before {
+  background-color: var(--color-status-danger) !important;
+}
+
+/* Blue / Info → remap to Terracotta */
+.indicator-pill.blue,
+.badge-info,
+.indicator-pill[data-indicator="blue"] {
+  background-color: var(--color-status-info-bg) !important;
+  color: var(--color-status-info) !important;
+}
+
+.indicator.blue::before,
+.indicator-pill.blue::before {
+  background-color: var(--color-status-info) !important;
+}
+
+/* Light blue → Oro accent */
+.indicator-pill.light-blue,
+.indicator-pill.cyan,
+.indicator-pill[data-indicator="light-blue"],
+.indicator-pill[data-indicator="cyan"] {
+  background-color: rgba(184, 152, 90, 0.12) !important;
+  color: var(--color-oro) !important;
+}
+
+/* Gray / Draft */
+.indicator-pill.gray,
+.indicator-pill.grey,
+.badge-secondary,
+.indicator-pill[data-indicator="gray"],
+.indicator-pill[data-indicator="grey"] {
+  background-color: rgba(138, 125, 130, 0.12) !important;
+  color: var(--color-text-muted) !important;
+}
+
+.indicator.gray::before,
+.indicator.grey::before,
+.indicator-pill.gray::before,
+.indicator-pill.grey::before {
+  background-color: var(--color-text-muted) !important;
+}
+
+/* Purple → Vino Profundo */
+.indicator-pill.purple,
+.indicator-pill[data-indicator="purple"] {
+  background-color: rgba(107, 45, 62, 0.12) !important;
+  color: var(--color-vino-profundo) !important;
+}
+
+.indicator.purple::before,
+.indicator-pill.purple::before {
+  background-color: var(--color-vino-profundo) !important;
+}
+
+
+/* ============================================================
+   11. Workspace (página principal con módulos)
+   ============================================================ */
+
+.desk-page,
+.workspace-container,
+#page-home {
   background-color: var(--color-harina) !important;
 }
 
-.page-container {
-  background-color: var(--color-harina) !important;
+/* Workspace module icons — tintear a sacro / terracotta */
+.desk-page .widget .widget-head .widget-title svg,
+.desk-page .widget-icon svg,
+.workspace-sidebar-item svg,
+.widget .widget-head svg,
+.icon-module svg,
+.module-icon svg {
+  color: var(--color-sacro) !important;
+  stroke: var(--color-sacro) !important;
+  fill: var(--color-sacro) !important;
 }
 
-.standard-filter-section {
+/* Shortcut icons */
+.desk-page .desk-shortcut .shortcut-icon svg,
+.shortcut-widget-box svg {
+  color: var(--color-terracotta) !important;
+  stroke: var(--color-terracotta) !important;
+}
+
+/* Module/widget titles */
+.desk-page .widget-title,
+.widget .widget-head .widget-title,
+.widget-head .widget-title a,
+.widget-head .widget-label,
+.desk-page .module-card-label,
+.module-card-label {
+  font-family: var(--font-ui) !important;
+  color: var(--color-sacro) !important;
+  font-weight: 500 !important;
+}
+
+/* Shortcut / number card widgets */
+.desk-page .widget.shortcut-widget-box,
+.desk-page .number-widget-box,
+.desk-page .widget.onboarding-widget-box {
+  background-color: var(--color-surface-card) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.desk-page .widget.shortcut-widget-box:hover,
+.desk-page .number-widget-box:hover {
+  box-shadow: var(--shadow-md) !important;
+}
+
+
+/* ============================================================
+   12. Indicators, Progress Bars & Notifications
+   ============================================================ */
+
+/* Progress bars */
+.progress-bar,
+.progress .progress-bar,
+.frappe-control .progress-bar {
+  background-color: var(--color-sacro) !important;
+}
+
+.progress {
+  background-color: var(--color-pergamino) !important;
+  border-radius: 4px !important;
+}
+
+/* Notification badge (keep red, just harmonize) */
+.notifications-icon .badge,
+.navbar .badge,
+.notification-badge {
+  background-color: var(--color-status-danger) !important;
+  color: var(--color-harina) !important;
+  font-family: var(--font-ui) !important;
+}
+
+
+/* ============================================================
+   13. Filter Section & List View
+   ============================================================ */
+
+.standard-filter-section,
+.list-filters,
+.filter-section {
   background-color: var(--color-surface-elevated) !important;
   border-bottom: 1px solid var(--color-pergamino) !important;
 }
 
-/* Custom Baroque elements */
+.frappe-list .no-result,
+.list-paging-area .btn-paging,
+.frappe-list .list-count {
+  font-family: var(--font-ui) !important;
+  color: var(--color-text-secondary) !important;
+}
+
+/* Like button / heart (in list) */
+.like-active-item .like-action,
+.liked-by .like-action {
+  color: var(--color-vino-profundo) !important;
+}
+
+/* Comment count, attachment indicators */
+.comment-count,
+.attachment-count {
+  color: var(--color-text-muted) !important;
+  font-family: var(--font-ui) !important;
+}
+
+
+/* ============================================================
+   14. Dialogs & Modals
+   ============================================================ */
+
+.modal-content,
+.modal-dialog .modal-content,
+.frappe-modal .modal-content {
+  background-color: var(--color-surface-card) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--color-border-default) !important;
+  background-color: var(--color-surface-elevated) !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+.modal-header .modal-title {
+  font-family: var(--font-display) !important;
+  color: var(--color-sacro) !important;
+  font-weight: 700 !important;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--color-border-default) !important;
+  background-color: var(--color-surface-elevated) !important;
+  border-radius: 0 0 12px 12px !important;
+}
+
+.modal-backdrop.show {
+  background-color: rgba(26, 17, 24, 0.5) !important;
+}
+
+
+/* ============================================================
+   15. Awesomebar (search overlay)
+   ============================================================ */
+
+.awesomebar-container,
+.search-dialog .modal-content {
+  background-color: var(--color-surface-card) !important;
+  border-radius: 12px !important;
+}
+
+.awesomebar-container input,
+.search-dialog input {
+  font-family: var(--font-ui) !important;
+  color: var(--color-text-body) !important;
+  background-color: var(--color-surface-elevated) !important;
+}
+
+.awesomebar-container .awesomebar-result,
+.search-dialog .search-result {
+  font-family: var(--font-ui) !important;
+}
+
+.awesomebar-container .awesomebar-result:hover,
+.search-dialog .search-result:hover {
+  background-color: var(--color-pergamino) !important;
+}
+
+
+/* ============================================================
+   16. Page Head & Actions
+   ============================================================ */
+
+.page-head,
+.page-head .page-head-content {
+  background-color: var(--color-harina) !important;
+  border-bottom: 1px solid var(--color-border-default) !important;
+}
+
+.page-head .page-title .title-text {
+  font-family: var(--font-display) !important;
+  color: var(--color-sacro) !important;
+}
+
+/* Sub-heading / subtitle */
+.page-head .sub-heading,
+.page-sub-head {
+  font-family: var(--font-body) !important;
+  color: var(--color-text-secondary) !important;
+}
+
+/* Page icon */
+.page-head .page-icon-group svg,
+.page-head .module-icon svg {
+  color: var(--color-sacro) !important;
+  stroke: var(--color-sacro) !important;
+}
+
+
+/* ============================================================
+   17. Timeline & Activity
+   ============================================================ */
+
+.timeline-item,
+.form-footer .timeline-item {
+  border-left: 2px solid var(--color-pergamino) !important;
+}
+
+.timeline-item .timeline-dot {
+  background-color: var(--color-sacro) !important;
+  border-color: var(--color-sacro) !important;
+}
+
+.timeline-item .timeline-content {
+  font-family: var(--font-body) !important;
+  color: var(--color-text-body) !important;
+}
+
+.comment-box .comment-input-header,
+.comment-box .ql-toolbar {
+  background-color: var(--color-surface-elevated) !important;
+  border-color: var(--color-border-default) !important;
+}
+
+
+/* ============================================================
+   18. Tabs (form view tabs)
+   ============================================================ */
+
+.form-tabs .nav-item .nav-link,
+.frappe-form .form-tabs .nav-link,
+.form-tabs-list .nav-link {
+  font-family: var(--font-ui) !important;
+  color: var(--color-text-secondary) !important;
+  border-bottom: 2px solid transparent !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 0.85rem !important;
+}
+
+.form-tabs .nav-item .nav-link.active,
+.frappe-form .form-tabs .nav-link.active,
+.form-tabs-list .nav-link.active {
+  color: var(--color-sacro) !important;
+  border-bottom-color: var(--color-sacro) !important;
+  font-weight: 500 !important;
+}
+
+.form-tabs .nav-item .nav-link:hover,
+.form-tabs-list .nav-link:hover {
+  color: var(--color-vino-profundo) !important;
+}
+
+
+/* ============================================================
+   19. Frappe Chat & Help bubbles
+   ============================================================ */
+
+.chat-bubble,
+.chat-message {
+  border-radius: 12px !important;
+  font-family: var(--font-body) !important;
+}
+
+
+/* ============================================================
+   20. Print Format adjustments
+   ============================================================ */
+
+@media print {
+  body {
+    font-family: var(--font-body) !important;
+    color: var(--color-text-body) !important;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display) !important;
+    color: var(--color-sacro) !important;
+  }
+}
+
+
+/* ============================================================
+   21. Scrollbars (Webkit)
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-elevated);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-pergamino);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+
+/* ============================================================
+   22. Miscellaneous Frappe overrides
+   ============================================================ */
+
+/* Frappe control read-only */
+.like-disabled-input,
+.control-value.like-disabled-input {
+  background-color: var(--color-surface-elevated) !important;
+  color: var(--color-text-body) !important;
+  border-color: var(--color-border-default) !important;
+}
+
+/* Section break heading */
+.section-head,
+.form-section .section-head {
+  font-family: var(--font-accent) !important;
+  color: var(--color-sacro) !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  font-size: 0.85rem !important;
+  border-bottom: 1px solid var(--color-border-default) !important;
+  padding-bottom: 0.5rem !important;
+}
+
+/* Column break labels */
+.frappe-control .control-label {
+  font-family: var(--font-ui) !important;
+  color: var(--color-text-secondary) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Help text */
+.help-text,
+.text-muted,
+.text-extra-muted {
+  color: var(--color-text-muted) !important;
+  font-family: var(--font-body) !important;
+}
+
+/* Selection highlight */
+::selection {
+  background-color: rgba(61, 26, 46, 0.15);
+  color: var(--color-carbon);
+}
+
+/* Tooltips */
+.tooltip-inner {
+  background-color: var(--color-carbon) !important;
+  color: var(--color-harina) !important;
+  font-family: var(--font-ui) !important;
+  border-radius: 4px !important;
+  font-size: 0.8rem !important;
+}
+
+.tooltip .arrow::before,
+.bs-tooltip-top .arrow::before {
+  border-top-color: var(--color-carbon) !important;
+}
+
+/* Alert / system messages */
+.desk-alert,
+.system-alert {
+  font-family: var(--font-ui) !important;
+  border-radius: 8px !important;
+}
+
+/* Empty state / no results */
+.no-result-message,
+.empty-state {
+  color: var(--color-text-muted) !important;
+  font-family: var(--font-body) !important;
+}
+
+.no-result-message svg,
+.empty-state svg {
+  color: var(--color-pergamino) !important;
+}
+
+/* Control buttons inside inputs (like link field arrows) */
+.control-input .link-btn,
+.control-input .btn-open {
+  color: var(--color-sacro) !important;
+}
+
+.control-input .link-btn:hover,
+.control-input .btn-open:hover {
+  color: var(--color-vino-profundo) !important;
+}
+
+/* Checkbox override */
+.frappe-control input[type="checkbox"]:checked {
+  background-color: var(--color-sacro) !important;
+  border-color: var(--color-sacro) !important;
+}
+
+/* Tag / pill in multi-select */
+.frappe-control .frappe-tag-area .btn-tag {
+  background-color: rgba(61, 26, 46, 0.08) !important;
+  color: var(--color-sacro) !important;
+  font-family: var(--font-ui) !important;
+  border-radius: 4px !important;
+}
+
+
+/* ============================================================
+   23. Custom Baroque Elements
+   ============================================================ */
+
 .baroque-divider {
   height: 1px;
   background: var(--color-pergamino);
@@ -134,7 +1085,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .baroque-divider::after {
-  content: '❧';
+  content: '\2767';  /* ❧ */
   position: absolute;
   left: 50%;
   top: 50%;
@@ -143,4 +1094,29 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 1rem;
   color: var(--color-sacro);
   font-size: 1.5rem;
+}
+
+
+/* ============================================================
+   24. Ensure no white or black puro
+   Global safety net
+   ============================================================ */
+
+/* Override any Frappe element that might use pure white */
+.frappe-card,
+.form-group,
+.frappe-list,
+.page-container,
+.layout-main-section,
+.desk-page,
+.module-view {
+  background-color: var(--color-harina) !important;
+}
+
+/* Cards specifically should be off-white */
+.frappe-card,
+.form-layout,
+.page-form,
+.frappe-list .result {
+  background-color: var(--color-surface-card) !important;
 }
