@@ -1,0 +1,208 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Crimson+Pro:wght@400;600&family=Jost:wght@400;600&display=swap');
+
+    .invoice-container {
+        font-family: 'Crimson Pro', serif;
+        font-size: 14px;
+        color: #2c2c2c;
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .invoice-header {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 2px solid #4b1b1b;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+
+    .brand-section h1 {
+        font-family: 'Playfair Display', serif;
+        color: #4b1b1b;
+        margin: 0;
+        font-size: 36px;
+    }
+
+    .brand-section p {
+        font-family: 'Jost', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .meta-section {
+        text-align: right;
+    }
+
+    .meta-section h2 {
+        font-family: 'Jost', sans-serif;
+        font-size: 18px;
+        margin: 0;
+        color: #4b1b1b;
+    }
+
+    .client-section {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+    }
+
+    .section-title {
+        font-family: 'Jost', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #7d7d7d;
+        margin-bottom: 10px;
+    }
+
+    .items-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+    }
+
+    .items-table th {
+        font-family: 'Jost', sans-serif;
+        background-color: #f9f4f4;
+        color: #4b1b1b;
+        text-transform: uppercase;
+        font-size: 12px;
+        padding: 12px;
+        text-align: left;
+        border-bottom: 2px solid #4b1b1b;
+    }
+
+    .items-table td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .totals-wrapper {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .totals-table {
+        width: 250px;
+    }
+
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+    }
+
+    .total-row.grand-total {
+        font-family: 'Playfair Display', serif;
+        font-size: 20px;
+        color: #4b1b1b;
+        border-top: 2px solid #4b1b1b;
+        margin-top: 10px;
+    }
+
+    .invoice-footer {
+        margin-top: 100px;
+        text-align: center;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        font-size: 12px;
+        color: #7d7d7d;
+    }
+
+    .vino-sacro-text {
+        color: #4b1b1b;
+        font-weight: 600;
+    }
+</style>
+
+<div class="invoice-container">
+    <div class="invoice-header">
+        <div class="brand-section">
+            <h1>Pan Nuestro</h1>
+            <p>Panadería Artesanal</p>
+        </div>
+        <div class="meta-section">
+            <h2>FACTURA</h2>
+            <div>{{ doc.name }}</div>
+            <div>Fecha: {{ doc.get_formatted("posting_date") }}</div>
+        </div>
+    </div>
+
+    <div class="client-section">
+        <div>
+            <div class="section-title">FACTURAR A:</div>
+            <div class="vino-sacro-text">{{ doc.customer_name }}</div>
+            {% if doc.address_display %}
+            <div>{{ doc.address_display }}</div>
+            {% endif %}
+            {% if doc.contact_mobile %}
+            <div>Tel: {{ doc.contact_mobile }}</div>
+            {% endif %}
+        </div>
+        <div style="text-align: right;">
+            <div class="section-title">DETALLES:</div>
+            <div>Vencimiento: {{ doc.get_formatted("due_date") }}</div>
+            <div>Moneda: {{ doc.currency }}</div>
+        </div>
+    </div>
+
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th style="text-align: right;">Cant.</th>
+                <th style="text-align: right;">Precio</th>
+                <th style="text-align: right;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%- for item in doc.items -%}
+            <tr>
+                <td>
+                    <div class="vino-sacro-text">{{ item.item_name or item.item_code }}</div>
+                    <div style="font-size: 12px; color: #666;">{{ item.description or "" }}</div>
+                </td>
+                <td style="text-align: right;">{{ item.qty }} {{ item.uom }}</td>
+                <td style="text-align: right;">{{ doc.get_formatted("price_list_rate", item) }}</td>
+                <td style="text-align: right;">{{ doc.get_formatted("amount", item) }}</td>
+            </tr>
+            {%- endfor -%}
+        </tbody>
+    </table>
+
+    <div class="totals-wrapper">
+        <div class="totals-table">
+            <div class="total-row">
+                <span>Subtotal:</span>
+                <span>{{ doc.get_formatted("total") }}</span>
+            </div>
+            {% if doc.discount_amount %}
+            <div class="total-row">
+                <span>Descuento:</span>
+                <span>-{{ doc.get_formatted("discount_amount") }}</span>
+            </div>
+            {% endif %}
+            {% if doc.taxes %}
+            {% for tax in doc.taxes %}
+            <div class="total-row">
+                <span>{{ tax.description }}:</span>
+                <span>{{ doc.get_formatted("tax_amount", tax) }}</span>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <div class="total-row grand-total">
+                <span>TOTAL:</span>
+                <span>{{ doc.get_formatted("grand_total") }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="invoice-footer">
+        <p>Gracias por preferir lo artesanal. Pan Nuestro, Antigua Guatemala.</p>
+        <p>Avenida de la Reforma, Edificio Sacra | bit.ly/pan-nuestro</p>
+    </div>
+</div>

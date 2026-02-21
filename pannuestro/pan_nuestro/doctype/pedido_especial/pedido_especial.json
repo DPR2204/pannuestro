@@ -1,0 +1,153 @@
+{
+    "actions": [],
+    "autoname": "format:PED-.YYYY.-.MM.-#####",
+    "creation": "2026-02-20 18:34:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "cliente",
+        "telefono",
+        "fecha_pedido",
+        "fecha_entrega",
+        "estado",
+        "descripcion_section",
+        "descripcion",
+        "imagen_referencia",
+        "pagos_section",
+        "total",
+        "anticipo",
+        "saldo",
+        "notas_internas_section",
+        "notas_internas",
+        "invoice_created"
+    ],
+    "fields": [
+        {
+            "fieldname": "cliente",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Cliente",
+            "options": "Customer",
+            "reqd": 1
+        },
+        {
+            "fetch_from": "cliente.mobile_no",
+            "fieldname": "telefono",
+            "fieldtype": "Data",
+            "label": "Teléfono"
+        },
+        {
+            "default": "Today",
+            "fieldname": "fecha_pedido",
+            "fieldtype": "Date",
+            "label": "Fecha de Pedido",
+            "reqd": 1
+        },
+        {
+            "fieldname": "fecha_entrega",
+            "fieldtype": "Datetime",
+            "in_list_view": 1,
+            "label": "Fecha de Entrega",
+            "reqd": 1
+        },
+        {
+            "default": "Recibido",
+            "fieldname": "estado",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Estado",
+            "options": "Recibido\nEn Producción\nListo\nEntregado\nCancelado"
+        },
+        {
+            "fieldname": "descripcion_section",
+            "fieldtype": "Section Break",
+            "label": "Descripción del Pedido"
+        },
+        {
+            "fieldname": "descripcion",
+            "fieldtype": "Text Editor",
+            "label": "Descripción"
+        },
+        {
+            "fieldname": "imagen_referencia",
+            "fieldtype": "Attach Image",
+            "label": "Imagen de Referencia"
+        },
+        {
+            "fieldname": "pagos_section",
+            "fieldtype": "Section Break",
+            "label": "Información de Pago"
+        },
+        {
+            "fieldname": "total",
+            "fieldtype": "Currency",
+            "label": "Total",
+            "reqd": 1
+        },
+        {
+            "fieldname": "anticipo",
+            "fieldtype": "Currency",
+            "label": "Anticipo"
+        },
+        {
+            "fieldname": "saldo",
+            "fieldtype": "Currency",
+            "label": "Saldo",
+            "read_only": 1
+        },
+        {
+            "fieldname": "notas_internas_section",
+            "fieldtype": "Section Break",
+            "label": "Notas Internas"
+        },
+        {
+            "fieldname": "notas_internas",
+            "fieldtype": "Text",
+            "label": "Notas Internas"
+        },
+        {
+            "fieldname": "invoice_created",
+            "fieldtype": "Check",
+            "hidden": 1,
+            "label": "Factura Creada",
+            "read_only": 1
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "modified": "2026-02-20 18:34:00.000000",
+    "modified_by": "Administrator",
+    "module": "Pan Nuestro",
+    "name": "Pedido Especial",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+}

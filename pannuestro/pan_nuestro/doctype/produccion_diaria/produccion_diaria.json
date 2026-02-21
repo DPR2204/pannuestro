@@ -1,0 +1,99 @@
+{
+    "actions": [],
+    "autoname": "format:PROD-.YYYY.-.MM.-#####",
+    "creation": "2026-02-20 18:31:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "fecha",
+        "turno",
+        "estado",
+        "section_break_notas",
+        "notas",
+        "section_break_detalle",
+        "detalle"
+    ],
+    "fields": [
+        {
+            "default": "Today",
+            "fieldname": "fecha",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "Fecha",
+            "reqd": 1
+        },
+        {
+            "fieldname": "turno",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Turno",
+            "options": "Madrugada (3am-7am)\nMañana (7am-12pm)\nTarde (12pm-5pm)",
+            "reqd": 1
+        },
+        {
+            "default": "Planificado",
+            "fieldname": "estado",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Estado",
+            "options": "Planificado\nEn Proceso\nCompletado"
+        },
+        {
+            "fieldname": "section_break_notas",
+            "fieldtype": "Section Break"
+        },
+        {
+            "fieldname": "notas",
+            "fieldtype": "Text",
+            "label": "Notas"
+        },
+        {
+            "fieldname": "section_break_detalle",
+            "fieldtype": "Section Break",
+            "label": "Detalle de Produccion"
+        },
+        {
+            "fieldname": "detalle",
+            "fieldtype": "Table",
+            "label": "Detalle",
+            "options": "Detalle de Produccion"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "modified": "2026-02-20 18:31:00.000000",
+    "modified_by": "Administrator",
+    "module": "Pan Nuestro",
+    "name": "Produccion Diaria",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Manufacturing Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+}

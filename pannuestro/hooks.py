@@ -25,8 +25,8 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/pannuestro/css/pannuestro.css"
-# app_include_js = "/assets/pannuestro/js/pannuestro.js"
+app_include_css = "/assets/pannuestro/css/pannuestro.css"
+app_include_js = "/assets/pannuestro/js/pannuestro.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/pannuestro/css/pannuestro.css"
@@ -43,7 +43,7 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Sales Invoice" : "public/js/sales_invoice_recurrente.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -246,4 +246,13 @@ app_license = "mit"
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
+
+# website_route_rules = [
+# 	{"from_route": "/api/method/pannuestro.recurrente.recurrente_webhooks.handle_webhook", "to_route": "recurrente_webhook"},
+# ]
+
+website_route_rules = [
+    {"from_route": "/recurrente_webhook", "to_route": "pannuestro.pan_nuestro.recurrente_webhooks.handle_webhook"},
+]
+
 

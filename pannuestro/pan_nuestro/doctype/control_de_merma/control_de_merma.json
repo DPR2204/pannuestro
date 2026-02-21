@@ -1,0 +1,96 @@
+{
+    "actions": [],
+    "autoname": "format:MER-.YYYY.-.MM.-#####",
+    "creation": "2026-02-20 18:33:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "fecha",
+        "registrado_por",
+        "tipo_merma",
+        "costo_total",
+        "section_break_detalle",
+        "detalle"
+    ],
+    "fields": [
+        {
+            "default": "Today",
+            "fieldname": "fecha",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "Fecha",
+            "reqd": 1
+        },
+        {
+            "default": "session_user",
+            "fieldname": "registrado_por",
+            "fieldtype": "Link",
+            "label": "Registrado Por",
+            "options": "User",
+            "reqd": 1
+        },
+        {
+            "fieldname": "tipo_merma",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Tipo de Merma",
+            "options": "Producto no vendido\nMateria prima vencida\nError de producción\nDaño físico",
+            "reqd": 1
+        },
+        {
+            "fieldname": "costo_total",
+            "fieldtype": "Currency",
+            "label": "Costo Total",
+            "read_only": 1
+        },
+        {
+            "fieldname": "section_break_detalle",
+            "fieldtype": "Section Break",
+            "label": "Detalle de Merma"
+        },
+        {
+            "fieldname": "detalle",
+            "fieldtype": "Table",
+            "label": "Detalle",
+            "options": "Detalle de Merma"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "modified": "2026-02-20 18:33:00.000000",
+    "modified_by": "Administrator",
+    "module": "Pan Nuestro",
+    "name": "Control de Merma",
+    "naming_rule": "Expression",
+    "owner": "Administrator",
+    "is_submittable": 1,
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Stock Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+}

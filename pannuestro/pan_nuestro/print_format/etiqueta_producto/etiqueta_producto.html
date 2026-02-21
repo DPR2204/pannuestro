@@ -1,0 +1,81 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Jost:wght@400;700&display=swap');
+
+    .product-label {
+        width: 100mm;
+        height: 60mm;
+        padding: 5mm;
+        border: 1px solid #4b1b1b;
+        font-family: 'Jost', sans-serif;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #fff;
+    }
+
+    .label-header {
+        font-family: 'Playfair Display', serif;
+        font-size: 24px;
+        color: #4b1b1b;
+        margin-bottom: 3mm;
+    }
+
+    .label-price {
+        font-size: 32px;
+        font-weight: bold;
+        color: #1a1a1a;
+        margin-bottom: 3mm;
+    }
+
+    .label-meta {
+        font-size: 12px;
+        color: #7d7d7d;
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 4mm;
+    }
+
+    .label-footer {
+        font-family: 'Playfair Display', serif;
+        font-size: 12px;
+        color: #4b1b1b;
+        border-top: 1px solid #eee;
+        padding-top: 2mm;
+    }
+
+    .label-logo-mini {
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+</style>
+
+<div class="product-label">
+    <div class="label-header">
+        {{ doc.item_name or doc.item_code }}
+    </div>
+
+    <div class="label-price">
+        {%- if doc.standard_rate -%}
+        {{ doc.get_formatted("standard_rate") }}
+        {%- else -%}
+        ---
+        {%- endif -%}
+    </div>
+
+    <div class="label-meta">
+        <div>Prod: ________</div>
+        <div>Vence: ________</div>
+    </div>
+
+    {% if doc.net_weight %}
+    <div class="label-meta" style="margin-top: -2mm; font-weight: bold;">
+        Peso: {{ doc.net_weight }} {{ doc.weight_uom }}
+    </div>
+    {% endif %}
+
+    <div class="label-footer">
+        <div class="label-logo-mini">Pan Nuestro</div>
+        <div style="font-family: 'Jost', sans-serif; font-size: 8px; text-transform: uppercase;">Antigua Guatemala</div>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+{
+    "actions": [],
+    "autoname": "None",
+    "creation": "2026-02-20 18:22:00.000000",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "enabled",
+        "environment",
+        "api_key",
+        "secret_key",
+        "webhook_secret",
+        "urls_section",
+        "sandbox_url",
+        "production_url",
+        "currency_section",
+        "default_currency"
+    ],
+    "fields": [
+        {
+            "default": "0",
+            "fieldname": "enabled",
+            "fieldtype": "Check",
+            "label": "Enabled"
+        },
+        {
+            "default": "Sandbox",
+            "fieldname": "environment",
+            "fieldtype": "Select",
+            "label": "Environment",
+            "options": "Sandbox\nProduction"
+        },
+        {
+            "fieldname": "api_key",
+            "fieldtype": "Password",
+            "label": "Public Key"
+        },
+        {
+            "fieldname": "secret_key",
+            "fieldtype": "Password",
+            "label": "Secret Key"
+        },
+        {
+            "fieldname": "webhook_secret",
+            "fieldtype": "Password",
+            "label": "Webhook Secret"
+        },
+        {
+            "fieldname": "urls_section",
+            "fieldtype": "Section Break",
+            "label": "API URLs"
+        },
+        {
+            "default": "https://app.recurrente.com/api",
+            "fieldname": "sandbox_url",
+            "fieldtype": "Data",
+            "label": "Sandbox URL"
+        },
+        {
+            "fieldname": "production_url",
+            "fieldtype": "Data",
+            "label": "Production URL"
+        },
+        {
+            "fieldname": "currency_section",
+            "fieldtype": "Section Break",
+            "label": "Currency Settings"
+        },
+        {
+            "default": "GTQ",
+            "fieldname": "default_currency",
+            "fieldtype": "Select",
+            "label": "Default Currency",
+            "options": "GTQ\nUSD"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "issingle": 1,
+    "links": [],
+    "modified": "2026-02-20 18:22:00.000000",
+    "modified_by": "Administrator",
+    "module": "Pan Nuestro",
+    "name": "Recurrente Settings",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "print": 1,
+            "read": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+}

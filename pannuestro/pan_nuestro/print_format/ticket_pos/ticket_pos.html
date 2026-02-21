@@ -1,0 +1,137 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;700&family=Cormorant+SC:wght@600&display=swap');
+
+    .pos-ticket {
+        width: 80mm;
+        padding: 5mm;
+        font-family: 'Jost', sans-serif;
+        font-size: 12px;
+        color: #1a1a1a;
+        line-height: 1.4;
+    }
+
+    .ticket-header {
+        text-align: center;
+        margin-bottom: 5mm;
+        border-bottom: 1px dashed #ccc;
+        padding-bottom: 3mm;
+    }
+
+    .ticket-logo {
+        font-family: 'Cormorant SC', serif;
+        font-size: 24px;
+        color: #4b1b1b; /* Vino Sacro */
+        margin-bottom: 1mm;
+        display: block;
+    }
+
+    .ticket-info {
+        font-size: 10px;
+        margin-bottom: 0.5mm;
+    }
+
+    .ticket-title {
+        font-weight: bold;
+        text-transform: uppercase;
+        margin: 2mm 0;
+        display: block;
+    }
+
+    .item-table {
+        width: 100%;
+        margin-bottom: 3mm;
+    }
+
+    .item-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1mm;
+    }
+
+    .item-name {
+        flex: 1;
+    }
+
+    .item-amount {
+        text-align: right;
+        min-width: 20mm;
+    }
+
+    .totals-section {
+        border-top: 1px dashed #ccc;
+        padding-top: 2mm;
+        margin-top: 2mm;
+    }
+
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+    }
+
+    .grand-total {
+        font-size: 16px;
+        margin-top: 1mm;
+    }
+
+    .ticket-footer {
+        text-align: center;
+        margin-top: 5mm;
+        font-style: italic;
+        font-size: 11px;
+    }
+
+    .sacra-divider {
+        font-family: 'Cormorant SC', serif;
+        color: #4b1b1b;
+        margin: 3mm 0;
+    }
+</style>
+
+<div class="pos-ticket">
+    <div class="ticket-header">
+        <span class="ticket-logo">Pan Nuestro</span>
+        <div class="ticket-info">NIT: 1234567-8</div>
+        <div class="ticket-info">Avenida de la Reforma, Antigua Guatemala</div>
+        <div class="ticket-info">Tel: +502 7832-0000</div>
+        <span class="ticket-title">{{ _("Ticket de Venta") }}</span>
+        <div class="ticket-info">No: {{ doc.name }}</div>
+        <div class="ticket-info">Fecha: {{ doc.get_formatted("posting_date") }} {{ doc.get_formatted("posting_time") }}</div>
+    </div>
+
+    <div class="item-table">
+        {%- for item in doc.items -%}
+        <div class="item-row">
+            <div class="item-name">
+                {{ item.qty }} x {{ item.item_name or item.item_code }}
+            </div>
+            <div class="item-amount">
+                {{ doc.get_formatted("amount", item) }}
+            </div>
+        </div>
+        {%- endfor -%}
+    </div>
+
+    <div class="totals-section">
+        <div class="total-row">
+            <span>{{ _("Subtotal") }}:</span>
+            <span>{{ doc.get_formatted("total") }}</span>
+        </div>
+        {%- if doc.discount_amount -%}
+        <div class="total-row">
+            <span>{{ _("Descuento") }}:</span>
+            <span>-{{ doc.get_formatted("discount_amount") }}</span>
+        </div>
+        {%- endif -%}
+        <div class="total-row grand-total">
+            <span>{{ _("TOTAL") }}:</span>
+            <span>{{ doc.get_formatted("grand_total") }}</span>
+        </div>
+    </div>
+
+    <div class="ticket-footer">
+        <div class="sacra-divider">❦</div>
+        <p>Gracias por su compra — Pan Nuestro, de cada día</p>
+        <div class="ticket-info">Cajero: {{ doc.owner }}</div>
+    </div>
+</div>
